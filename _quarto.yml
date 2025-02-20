@@ -1,0 +1,25 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "HenokDawite"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+      - menu: 
+        - href: Valentines Day Gifts.qmd
+          text: Valentines Day
+        - href: Meteorite falls.qmd
+          text: Meteorite Falls
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+editor: visual
+

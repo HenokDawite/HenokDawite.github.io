@@ -1,0 +1,16 @@
+---
+title: "Henok Dawite"
+image: Head.jpg
+toc: false
+about: 
+  template: jolla
+  image-shape: round
+  image-width: 23em
+  links:
+    - text: LinkedIn
+      href: https://www.linkedin.com/in/henok-dawite-9a7739299/
+    - text: GitHub
+      href: https://github.com/HenokDawite/HenokDawite.github.io
+---
+
+I am pursuing a BA in Computer Science from Pomona College. I am learning to apply computational thinking and programming skills to solve complex problems and have a passion for technology and innovation. I am fluent in Amharic and English, have limited proficiency in Spanish, and enjoy learning new languages and cultures. I am a driven, adaptable, and collaborative individual who values teamwork, creativity, and excellence.

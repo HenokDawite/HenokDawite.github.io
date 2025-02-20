@@ -1,0 +1,31 @@
+---
+title: "Meteorite falls"
+description: |
+  Analysis of The Number of Meteorite Strikes Obesrved Falling And Recovered 
+  vs. Found Without Witnessing the Fall
+author: Henok Dawite
+date: February 19, 2025
+format: html
+---
+
+```{r, echo=FALSE}
+suppressMessages(library(ggplot2))
+suppressMessages(library(dplyr))
+
+# Load dataset
+meteorites <- read.csv("meteorites.csv")
+
+# Data preparation
+meteorites_clean <- meteorites |>
+  filter(!is.na(fall)) |>
+  group_by(fall) |>
+  summarise(count = n(), .groups = 'drop')
+
+# Plot
+ggplot(meteorites_clean, aes(x = fall, y = count, fill = fall)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Meteorite Falls vs. Finds",
+       x = "Event Type (Fall = Observed Fall, Find = Later Discovery)",
+       y = "Number of Meteorites") +
+  theme_minimal()
+```

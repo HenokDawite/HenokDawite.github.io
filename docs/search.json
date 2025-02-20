@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Henok Dawite",
+    "section": "",
+    "text": "I am pursuing a BA in Computer Science from Pomona College. I am learning to apply computational thinking and programming skills to solve complex problems and have a passion for technology and innovation. I am fluent in Amharic and English, have limited proficiency in Spanish, and enjoy learning new languages and cultures. I am a driven, adaptable, and collaborative individual who values teamwork, creativity, and excellence."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "Valentines Day Gifts.html",
+    "href": "Valentines Day Gifts.html",
+    "title": "Valentines Day Gifts",
+    "section": "",
+    "text": "Attaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union"
+  },
+  {
+    "objectID": "Meteorite falls.html",
+    "href": "Meteorite falls.html",
+    "title": "Meteorite falls",
+    "section": "",
+    "text": "suppressMessages(library(ggplot2))\nsuppressMessages(library(dplyr))\n\n# Load dataset\nmeteorites &lt;- read.csv(\"meteorites.csv\")\n\n# Data preparation\nmeteorites_clean &lt;- meteorites |&gt;\n  filter(!is.na(fall)) |&gt;\n  group_by(fall) |&gt;\n  summarise(count = n(), .groups = 'drop')\n\n# Plot\nggplot(meteorites_clean, aes(x = fall, y = count, fill = fall)) +\n  geom_bar(stat = \"identity\") +\n  labs(title = \"Meteorite Falls vs. Finds\",\n       x = \"Event Type (Fall = Observed Fall, Find = Later Discovery)\",\n       y = \"Number of Meteorites\") +\n  theme_minimal()"
+  }
+]
