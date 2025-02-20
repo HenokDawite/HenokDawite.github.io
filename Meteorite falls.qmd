@@ -1,8 +1,6 @@
 ---
 title: "Meteorite falls"
-description: |
-  Analysis of The Number of Meteorite Strikes Obesrved Falling And Recovered 
-  vs. Found Without Witnessing the Fall
+description: "Analysis of The Number of Meteorite Strikes Obesrved Falling and Recovered vs. Found Without Witnessing the Fall and Recovered"
 author: Henok Dawite
 date: February 19, 2025
 format: html

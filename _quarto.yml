@@ -11,7 +11,7 @@ website:
       - about.qmd
       - menu: 
         - href: Valentines Day Gifts.qmd
-          text: Valentines Day
+          text: Gift Giving
         - href: Meteorite falls.qmd
           text: Meteorite Falls
 

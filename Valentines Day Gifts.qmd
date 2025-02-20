@@ -1,7 +1,6 @@
 ---
 title: "Gift Giving"
-description: |
-  Analysis of Gift Spending by gender
+description: "Analysis of Gift Giving by Gender"
 author: Henok Dawite
 date: February 19, 2025
 format: html
@@ -10,19 +9,18 @@ format: html
 ```{r, echo=FALSE}
 suppressMessages(library(ggplot2))
 suppressMessages(library(dplyr))
+suppressMessages(library(tidyr))
 
-
+# Load data
 gifts_gender <- read.csv("gifts_gender.csv")
 
+# Reshape data to long format
+gifts_long <- gifts_gender %>%
+  pivot_longer(cols = -Gender, names_to = "GiftCategory", values_to = "Percentage")
 
-ggplot() +
-  geom_bar(data = gifts_gender, aes(x = "Candy", y = Candy, fill = Gender), stat = "identity", position = "dodge") +
-  geom_bar(data = gifts_gender, aes(x = "Flowers", y = Flowers, fill = Gender), stat = "identity", position = "dodge") +
-  geom_bar(data = gifts_gender, aes(x = "Jewelry", y = Jewelry, fill = Gender), stat = "identity", position = "dodge") +
-  geom_bar(data = gifts_gender, aes(x = "GreetingCards", y = GreetingCards, fill = Gender), stat = "identity", position = "dodge") +
-  geom_bar(data = gifts_gender, aes(x = "EveningOut", y = EveningOut, fill = Gender), stat = "identity", position = "dodge") +
-  geom_bar(data = gifts_gender, aes(x = "Clothing", y = Clothing, fill = Gender), stat = "identity", position = "dodge") +
-  geom_bar(data = gifts_gender, aes(x = "GiftCards", y = GiftCards, fill = Gender), stat = "identity", position = "dodge") +
+# Create the bar plot
+ggplot(gifts_long, aes(x = GiftCategory, y = Percentage, fill = Gender)) +
+  geom_bar(stat = "identity", position = "dodge") +
   labs(title = "Gift Spending by Gender", 
        x = "Gift Category", 
        y = "Percentage of People Buying") +
