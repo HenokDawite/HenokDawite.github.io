@@ -1,6 +1,6 @@
 ---
 title: "Henok Dawite"
-image: Headshot.jpg
+image: Head.jpg
 toc: false
 about: 
   template: jolla

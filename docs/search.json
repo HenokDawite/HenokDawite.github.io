@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "Valentines day gifts.html",
+    "href": "Valentines day gifts.html",
+    "title": "Gender-Based Spending Comparison",
+    "section": "",
+    "text": "library(ggplot2)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\n\n\ngifts_gender &lt;- read.csv(\"gifts_gender.csv\")\n\n\nggplot() +\n  geom_bar(data = gifts_gender, aes(x = \"Candy\", y = Candy, fill = Gender), stat = \"identity\", position = \"dodge\") +\n  geom_bar(data = gifts_gender, aes(x = \"Flowers\", y = Flowers, fill = Gender), stat = \"identity\", position = \"dodge\") +\n  geom_bar(data = gifts_gender, aes(x = \"Jewelry\", y = Jewelry, fill = Gender), stat = \"identity\", position = \"dodge\") +\n  geom_bar(data = gifts_gender, aes(x = \"GreetingCards\", y = GreetingCards, fill = Gender), stat = \"identity\", position = \"dodge\") +\n  geom_bar(data = gifts_gender, aes(x = \"EveningOut\", y = EveningOut, fill = Gender), stat = \"identity\", position = \"dodge\") +\n  geom_bar(data = gifts_gender, aes(x = \"Clothing\", y = Clothing, fill = Gender), stat = \"identity\", position = \"dodge\") +\n  geom_bar(data = gifts_gender, aes(x = \"GiftCards\", y = GiftCards, fill = Gender), stat = \"identity\", position = \"dodge\") +\n  labs(title = \"Gift Spending by Gender\", \n       x = \"Gift Category\", \n       y = \"Percentage of People Buying\") +\n  theme_minimal() +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))"
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
@@ -12,5 +19,12 @@
     "title": "Henok Dawite",
     "section": "",
     "text": "I am pursuing a BA in Computer Science from Pomona College. I am learning to apply computational thinking and programming skills to solve complex problems and have a passion for technology and innovation. I am fluent in Amharic and English, have limited proficiency in Spanish, and enjoy learning new languages and cultures. I am a driven, adaptable, and collaborative individual who values teamwork, creativity, and excellence."
+  },
+  {
+    "objectID": "Births Deaths.html",
+    "href": "Births Deaths.html",
+    "title": "Deaths and Births by Year",
+    "section": "",
+    "text": "library(ggplot2)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(readr)\n\n\nevents &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2024/2024-02-27/events.csv')\n\nRows: 37 Columns: 2\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (1): event\ndbl (1): year\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\nbirths &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2024/2024-02-27/births.csv')\n\nRows: 121 Columns: 4\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (2): person, description\ndbl (2): year_birth, year_death\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\ndeaths &lt;- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2024/2024-02-27/deaths.csv')\n\nRows: 62 Columns: 4\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (2): person, description\ndbl (2): year_death, year_birth\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\n\nbirths_summary &lt;- births |&gt;\n  group_by(year_birth) |&gt;\n  summarise(count = n(), .groups = 'drop') |&gt;\n  rename(year = year_birth) |&gt;\n  mutate(type = 'Births')\n\n\ndeaths_summary &lt;- deaths |&gt;\n  group_by(year_death) |&gt;\n  summarise(count = n(), .groups = 'drop') |&gt;\n  rename(year = year_death) |&gt;\n  mutate(type = 'Deaths')\n\n\nsummary_data &lt;- bind_rows(births_summary, deaths_summary)\n\n\nggplot(summary_data, aes(x = year, y = count, color = type)) +\n  geom_line(size = 1) +\n  labs(title = \"Number of Births and Deaths by Year\",\n       x = \"Year\",\n       y = \"Count\",\n       color = \"Event Type\") +\n  theme_minimal()\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\nℹ Please use `linewidth` instead."
   }
 ]
