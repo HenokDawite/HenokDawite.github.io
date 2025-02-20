@@ -1,3 +1,17 @@
 ---
-title: "HenokDawite.github.io"
+title: "Henok Dawite"
+image: "tobi.jpg"
+links:
+  - label: LinkedIn
+    url: "https://linkedin.com/"
+  - label: Twitter
+    url: "https://twitter.com/"
+  - label: GitHub
+    url: "https://github.com/"
+  - label: Email
+    url: "mailto:email@email.com"
+output:
+  postcards::jolla
 ---
+
+I am pursuing a BA in Computer Science from Pomona College. I am learning to apply computational thinking and programming skills to solve complex problems and have a passion for technology and innovation. I am fluent in Amharic and English, have limited proficiency in Spanish, and enjoy learning new languages and cultures. I am a driven, adaptable, and collaborative individual who values teamwork, creativity, and excellence.
