@@ -1,6 +1,6 @@
 ---
-title: "Netflix TV Shows"
-description: "Analysis of Netflix TV Shows"
+title: "Analysis of Netflix Movies and TV Shows"
+description: "This is an analysis of Netflix's content catalog using R's 'tidyverse' package. Visualizations include a bar chart showing the number of titles added per year, a box plot comparing description word counts by content type, and an analysis identifying the most frequent words following 'The' in titles, presented in a horizontal bar chart. This analysis offers insights into content trends, description characteristics, and title naming conventions on Netflix."
 author: Henok Dawite
 date: March 4, 2025
 format: html
@@ -36,6 +36,8 @@ p1 <- ggplot(netflix_data_clean, aes(x = year_added)) +
 print(p1)
 ```
 
+This is a bar chart that indicates how many titles were added to the Netflix library each year. If we determine that more titles were added one year than the next, we can deduce whether Netflix was in a position to try to reduce titles at one point due to business constraints or, conversely, in a stable position to assess market forces or consumer demand and expand availability.
+
 ```{r}
 # Count the number of words in each description for visualization
 netflix_data$word_count <- str_count(netflix_data$description, "\\w+")
@@ -48,6 +50,8 @@ p2 <- ggplot(netflix_data, aes(x = type, y = word_count, fill = type)) +
 
 print(p2)
 ```
+
+This box plot displays the distribution of word counts in content descriptions, categorized by the types that are movies and TV shows. According to the figure, TV shows often have shorter descriptions (around 20–30 words), but movies have lengthier descriptions (about 40–50 words on average). This implies that because movies are stand-alone works of content, they may need more thorough explanations to condense their stories and concepts. TV shows, on the other hand, may employ briefer summaries and concentrate on more general themes entice people to watch a series.
 
 ```{r}
 # Split titles into words and count most common words
@@ -70,3 +74,9 @@ p3 <- ggplot(word_after_the_counts, aes(x = reorder(word, count), y = count, fil
 
 print(p3)
 ```
+
+This horizontal bar chart showcases the ten most common words that immediately follow 'The' in Netflix titles. This chart analyzes the frequency of words that commonly follow the word "The" in titles on Netflix. The most frequent word is "Last," followed by "Movie," "Series," "Great," "Story," "Legend," "Beginning," "New," "Little," and "Devil." This data suggests that Netflix titles often use these words to create intrigue or convey the theme of the content. For instance, words like "Last," "Great," and "Legend" might indicate titles with epic or significant narratives, while "Movie" and "Series" are straightforward descriptors of the format.
+
+**Data Source:**\
+- **Accessed via:** [TidyTuesday GitHub page](https://github.com/rfordatascience/tidytuesday/blob/main/data/2021/2021-04-20/readme.md)\
+- **Original Source:** Kaggle
