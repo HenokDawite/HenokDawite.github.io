@@ -1,0 +1,72 @@
+---
+title: "Netflix TV Shows"
+description: "Analysis of Netflix TV Shows"
+author: Henok Dawite
+date: March 4, 2025
+format: html
+---
+
+```{r}
+library(tidyverse)
+library(stringr)
+library(ggplot2)
+
+# Load the dataset
+netflix_data <- read.csv("netflix_titles 2.csv", stringsAsFactors = FALSE)
+
+# Data Cleaning
+netflix_data <- netflix_data %>%
+  mutate(
+    date_added = as.Date(date_added, format="%B %d, %Y"),
+    title = as.character(title)
+  )
+```
+
+```{r}
+# Extract year from date_added for visualization
+netflix_data$year_added <- str_extract(netflix_data$date_added, "\\d{4}")
+
+netflix_data_clean <- netflix_data %>% filter(!is.na(year_added))
+
+# Number of titles per year
+p1 <- ggplot(netflix_data_clean, aes(x = year_added)) +
+  geom_bar(fill = "steelblue", color = "black", width = 0.8) +
+  labs(title = "Number of Titles Added Per Year", x = "Year", y = "Count")
+
+print(p1)
+```
+
+```{r}
+# Count the number of words in each description for visualization
+netflix_data$word_count <- str_count(netflix_data$description, "\\w+")
+
+# Average word count in description by type
+p2 <- ggplot(netflix_data, aes(x = type, y = word_count, fill = type)) +
+  geom_boxplot() +
+  labs(title = "Word Count in Description by Type", x = "Type", y = "Word Count") +
+  scale_fill_brewer(palette = "Set3")
+
+print(p2)
+```
+
+```{r}
+# Split titles into words and count most common words
+netflix_data$word_after_the <- str_extract(netflix_data$title, "(?<=The )\\w+")
+
+word_after_the_counts <- netflix_data$word_after_the %>%
+  na.omit() %>%                 
+  table() %>%                   
+  as.data.frame() %>%
+  rename(word = ".", count = "Freq") %>%
+  arrange(desc(count)) %>%
+  head(10)                             
+
+p3 <- ggplot(word_after_the_counts, aes(x = reorder(word, count), y = count, fill = count)) +
+  geom_bar(stat = "identity", color = "black") +
+  coord_flip() +
+  labs(title = "Top 10 Words Following 'The' in Netflix Titles", x = "Word", y = "Count") +
+  scale_fill_gradient(low = "moccasin", high = "darkorange") +
+  theme(legend.position = "none") 
+
+print(p3)
+```
