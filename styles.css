@@ -2,10 +2,11 @@
 body {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 20px;
+    padding: 20px 60px; /* More space on the sides */
     background-color: #f8f9fa;
+    max-width: 1400px; /* Adjust this based on your layout */
 }
