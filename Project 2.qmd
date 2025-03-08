@@ -10,7 +10,6 @@ description: |
 author: Henok Dawite
 date: March 4, 2025
 format: html
-body-attributes: "class='netflix-analysis-page'"
 execute:
   warning: false
   message: false
