@@ -77,6 +77,8 @@ print(p3)
 
 This horizontal bar chart showcases the ten most common words that immediately follow 'The' in Netflix titles. This chart analyzes the frequency of words that commonly follow the word "The" in titles on Netflix. The most frequent word is "Last," followed by "Movie," "Series," "Great," "Story," "Legend," "Beginning," "New," "Little," and "Devil." This data suggests that Netflix titles often use these words to create intrigue or convey the theme of the content. For instance, words like "Last," "Great," and "Legend" might indicate titles with epic or significant narratives, while "Movie" and "Series" are straightforward descriptors of the format.
 
-**Data Source:**\
-- **Accessed via:** [TidyTuesday GitHub page](https://github.com/rfordatascience/tidytuesday/blob/main/data/2021/2021-04-20/readme.md)\
-- **Original Source:** Kaggle
+Data Source:
+
+Accessed via: [TidyTuesday GitHub page](https://github.com/rfordatascience/tidytuesday/blob/main/data/2021/2021-04-20/readme.md)
+
+Original Source: Kaggle
