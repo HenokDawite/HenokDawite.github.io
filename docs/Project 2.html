@@ -237,7 +237,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of titles per year</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(netflix_data_clean, <span class="fu">aes</span>(<span class="at">x =</span> year_added)) <span class="sc">+</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">width =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Number of Titles Added Per Year"</span>, <span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Number of Titles Added Per Year"</span>, <span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Project-2_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
 </div>
 <p>This is a bar chart that indicates how many titles were added to the Netflix library each year. If we determine that more titles were added one year than the next, we can deduce whether Netflix was in a position to try to reduce titles at one point due to business constraints or, conversely, in a stable position to assess market forces or consumer demand and expand availability.</p>
 <div class="cell">
@@ -248,9 +257,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(netflix_data, <span class="fu">aes</span>(<span class="at">x =</span> type, <span class="at">y =</span> word_count, <span class="at">fill =</span> type)) <span class="sc">+</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Word Count in Description by Type"</span>, <span class="at">x =</span> <span class="st">"Type"</span>, <span class="at">y =</span> <span class="st">"Word Count"</span>) <span class="sc">+</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set3"</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Project-2_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<p>This box plot displays the distribution of word counts in content descriptions, categorized by the types that are movies and TV shows.</p>
+</div>
+</div>
+<p>This box plot displays the distribution of word counts in content descriptions, categorized by the types that are movies and TV shows. According to the figure, TV shows often have shorter descriptions (around 20–30 words), but movies have lengthier descriptions (about 40–50 words on average). This implies that because movies are stand-alone works of content, they may need more thorough explanations to condense their stories and concepts. TV shows, on the other hand, may employ briefer summaries and concentrate on more general themes entice people to watch a series.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split titles into words and count most common words</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>netflix_data<span class="sc">$</span>word_after_the <span class="ot">&lt;-</span> <span class="fu">str_extract</span>(netflix_data<span class="sc">$</span>title, <span class="st">"(?&lt;=The )</span><span class="sc">\\</span><span class="st">w+"</span>)</span>
@@ -268,8 +286,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top 10 Words Following 'The' in Netflix Titles"</span>, <span class="at">x =</span> <span class="st">"Word"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"moccasin"</span>, <span class="at">high =</span> <span class="st">"darkorange"</span>) <span class="sc">+</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Project-2_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
+</div>
+</div>
+<p>This horizontal bar chart showcases the ten most common words that immediately follow ‘The’ in Netflix titles. This chart analyzes the frequency of words that commonly follow the word “The” in titles on Netflix. The most frequent word is “Last,” followed by “Movie,” “Series,” “Great,” “Story,” “Legend,” “Beginning,” “New,” “Little,” and “Devil.” This data suggests that Netflix titles often use these words to create intrigue or convey the theme of the content. For instance, words like “Last,” “Great,” and “Legend” might indicate titles with epic or significant narratives, while “Movie” and “Series” are straightforward descriptors of the format.</p>
+<p>Data Source:</p>
+<p>Accessed via: <a href="https://github.com/rfordatascience/tidytuesday/blob/main/data/2021/2021-04-20/readme.md">TidyTuesday GitHub page</a></p>
+<p>Original Source: Kaggle</p>
 
 
 
