@@ -1,9 +1,24 @@
 ---
 title: "Analysis of Netflix Movies and TV Shows"
-description: "This is an analysis of Netflix's content catalog using R's 'tidyverse' package. Visualizations include a bar chart showing the number of titles added per year, a box plot comparing description word counts by content type, and an analysis identifying the most frequent words following 'The' in titles, presented in a horizontal bar chart. This analysis offers insights into content trends, description characteristics, and title naming conventions on Netflix."
+description: |
+  This is an analysis of Netflix's content catalog using R's 'tidyverse' package. 
+  Visualizations include a bar chart showing the number of titles added per year, 
+  a box plot comparing description word counts by content type, and an analysis 
+  identifying the most frequent words following 'The' in titles, presented in a 
+  horizontal bar chart. This analysis offers insights into content trends, 
+  description characteristics, and title naming conventions on Netflix.
 author: Henok Dawite
 date: March 4, 2025
 format: html
+execute:
+  warning: false
+  message: false
+toc: false
+about:
+  template: trestles
+  links: 
+    - text: "Netflix Dataset"
+      href: "https://www.kaggle.com/datasets/shivamb/netflix-shows"
 ---
 
 ```{r}
