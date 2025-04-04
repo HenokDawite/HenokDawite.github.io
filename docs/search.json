@@ -33,5 +33,117 @@
     "title": "Analysis of Netflix Movies and TV Shows",
     "section": "",
     "text": "library(tidyverse)\nlibrary(stringr)\nlibrary(ggplot2)\n\n# Load the dataset\nnetflix_data &lt;- read.csv(\"netflix_titles 2.csv\", stringsAsFactors = FALSE)\n\n# Data Cleaning\nnetflix_data &lt;- netflix_data %&gt;%\n  mutate(\n    date_added = as.Date(date_added, format=\"%B %d, %Y\"),\n    title = as.character(title)\n  )\n\n\n# Extract year from date_added for visualization\nnetflix_data$year_added &lt;- str_extract(netflix_data$date_added, \"\\\\d{4}\")\n\nnetflix_data_clean &lt;- netflix_data %&gt;% filter(!is.na(year_added))\n\n# Number of titles per year\np1 &lt;- ggplot(netflix_data_clean, aes(x = year_added)) +\n  geom_bar(fill = \"steelblue\", color = \"black\", width = 0.8) +\n  labs(title = \"Number of Titles Added Per Year\", x = \"Year\", y = \"Count\")\n\nprint(p1)\n\n\n\n\n\n\n\n\nThis is a bar chart that indicates how many titles were added to the Netflix library each year. If we determine that more titles were added one year than the next, we can deduce whether Netflix was in a position to try to reduce titles at one point due to business constraints or, conversely, in a stable position to assess market forces or consumer demand and expand availability.\n\n# Count the number of words in each description for visualization\nnetflix_data$word_count &lt;- str_count(netflix_data$description, \"\\\\w+\")\n\n# Average word count in description by type\np2 &lt;- ggplot(netflix_data, aes(x = type, y = word_count, fill = type)) +\n  geom_boxplot() +\n  labs(title = \"Word Count in Description by Type\", x = \"Type\", y = \"Word Count\") +\n  scale_fill_brewer(palette = \"Set3\")\n\nprint(p2)\n\n\n\n\n\n\n\n\nThis box plot displays the distribution of word counts in content descriptions, categorized by the types that are movies and TV shows. According to the figure, TV shows often have shorter descriptions (around 20–30 words), but movies have lengthier descriptions (about 40–50 words on average). This implies that because movies are stand-alone works of content, they may need more thorough explanations to condense their stories and concepts. TV shows, on the other hand, may employ briefer summaries and concentrate on more general themes entice people to watch a series.\n\n# Split titles into words and count most common words\nnetflix_data$word_after_the &lt;- str_extract(netflix_data$title, \"(?&lt;=The )\\\\w+\")\n\nword_after_the_counts &lt;- netflix_data$word_after_the %&gt;%\n  na.omit() %&gt;%                 \n  table() %&gt;%                   \n  as.data.frame() %&gt;%\n  rename(word = \".\", count = \"Freq\") %&gt;%\n  arrange(desc(count)) %&gt;%\n  head(10)                             \n\np3 &lt;- ggplot(word_after_the_counts, aes(x = reorder(word, count), y = count, fill = count)) +\n  geom_bar(stat = \"identity\", color = \"black\") +\n  coord_flip() +\n  labs(title = \"Top 10 Words Following 'The' in Netflix Titles\", x = \"Word\", y = \"Count\") +\n  scale_fill_gradient(low = \"moccasin\", high = \"darkorange\") +\n  theme(legend.position = \"none\") \n\nprint(p3)\n\n\n\n\n\n\n\n\nThis horizontal bar chart showcases the ten most common words that immediately follow ‘The’ in Netflix titles. This chart analyzes the frequency of words that commonly follow the word “The” in titles on Netflix. The most frequent word is “Last,” followed by “Movie,” “Series,” “Great,” “Story,” “Legend,” “Beginning,” “New,” “Little,” and “Devil.” This data suggests that Netflix titles often use these words to create intrigue or convey the theme of the content. For instance, words like “Last,” “Great,” and “Legend” might indicate titles with epic or significant narratives, while “Movie” and “Series” are straightforward descriptors of the format.\nData Source:\nAccessed via: TidyTuesday GitHub page\nOriginal Source: Kaggle"
+  },
+  {
+    "objectID": "Project 3.html",
+    "href": "Project 3.html",
+    "title": "Free Throw Rate and Tournament Odds",
+    "section": "",
+    "text": "Full Context of Problem\nThis project investigates whether NCAA Division I men’s basketball teams that make the tournament tend to get to the free throw line more often than those that don’t. The data set used (cbb.csv) includes team-level performance statistics from a full season, including each team’s free throw rate (FTR). This is defined as free throw attempts per field goal attempt. To examine this, we create a new variable, made_tourney, that categorizes teams as either having qualified for the NCAA tournament or not.\nThe null hypothesis is that there is no real difference in free throw rate between teams that make the tournament. For those that don’t, any observed difference is due to random chance. The alternative hypothesis is that teams who qualify for the tournament tend to have higher free throw rates. This relationship is worth looking into because a higher FTR often reflects physicality, aggressiveness, or the ability to draw fouls. Those traits may or may not contribute to team success leading up to the tournament. We begin by visualizing the distribution of FTR across both groups, and then conduct a permutation test to assess whether the observed difference is statistically significant.\n\nlibrary(tidyverse)\nlibrary(janitor)\nlibrary(infer)\n\n\ncbb &lt;- read_csv(\"cbb.csv\") |&gt; clean_names()\n\n# create a binary variable for whether the team made the tournament or not\ncbb &lt;- cbb |&gt; \n  mutate(made_tourney = if_else(postseason %in% c(\"2ND\", \"Champions\", \"E8\", \"F4\", \"R32\", \"R64\", \"R68\", \"S16\"), \"yes\", \"no\"))\n\n# keep only relevant columns\ncbb_filtered &lt;- cbb |&gt; \n  filter(made_tourney %in% c(\"yes\", \"no\")) |&gt; \n  select(ftr, made_tourney)\n\nVisualize Group Differences\n\n# create a boxplot to compare the distribution of Free Throw Rate (FTR)\n# between tournament and non-tournament teams\nggplot(cbb_filtered, aes(x = made_tourney, y = ftr, fill = made_tourney)) +\n  geom_boxplot() +\n  labs(\n    title = \"Free Throw Rate by Tournament Status\",\n    x = \"Made NCAA Tournament\",\n    y = \"Free Throw Rate (FTA/FGA)\")\n\n\n\n\n\n\n\n\nAbout Box Plot\nThis box plot compares Free Throw Rate (FTR) between teams that made the NCAA tournament and those that didn’t. It shows that tournament teams generally have a higher median FTR, and their overall distribution is slightly shifted upward. This visual gives an early indication that teams reaching the tournament may be more likely to draw fouls and get to the free throw line.\n\n# calculate the observed difference in mean FTR between the two groups\nobs_diff &lt;- cbb_filtered |&gt; \n  specify(ftr ~ made_tourney) |&gt; \n  calculate(stat = \"diff in means\", order = c(\"yes\", \"no\"))\n\nobs_diff\n\nResponse: ftr (numeric)\nExplanatory: made_tourney (factor)\n# A tibble: 1 × 1\n   stat\n  &lt;dbl&gt;\n1  1.35\n\n\nRun Permutation Test\n\n# simulate the null distribution by randomly permuting group labels 1000 times\nset.seed(42)\nperm_results &lt;- cbb_filtered |&gt; \n  specify(ftr ~ made_tourney) |&gt; \n  hypothesize(null = \"independence\") |&gt; \n  generate(reps = 1000, type = \"permute\") |&gt; \n  calculate(stat = \"diff in means\", order = c(\"yes\", \"no\"))\n\nPlot Null Distribution\n\n# create a histogram to visualize the null distribution of permuted differences\n# and overlay the observed difference as a red dashed line\nggplot(perm_results, aes(x = stat)) +\n  geom_histogram(binwidth = 0.05, fill = \"skyblue\", color = \"black\") +\n  geom_vline(xintercept = obs_diff$stat, color = \"red\", linetype = \"dashed\") +\n  labs(\n    title = \"Null Distribution of Free Throw Rate Differences\",\n    x = \"Difference in Mean FTR (Tournament - Non-Tournament)\",\n    y = \"Frequency\")\n\n\n\n\n\n\n\n\nAbout Histogram\nThis graph shows simulated differences in Free Throw Rate, assuming no real relationship exists. The red dashed line represents the actual observed difference between tournament and non-tournament teams, which falls far to the right of most simulated values. This would suggest that the result is unlikely due to chance.\n\n# calculate p-value\np_val &lt;- mean(abs(perm_results$stat) &gt;= abs(obs_diff$stat))\np_val\n\n[1] 0\n\n\nConclusion\nUltimately, my permutation test found that teams that make the NCAA tournament have a statistically significantly higher Free Throw Rate than teams that do not, with a p-value of less than 0.001, meaning this difference is not due to chance. I found this by calculating the means of both populations’ free throw rates and performing a permutation test of my own, where I randomly shuffled the labels of whether or not teams made the NCAA tournament 1,000 times, hypothesizing that there was no association between tournament outcome and Free Throw Rate. I then plotted the observed difference based on iteration. I found that the actual difference in means I calculated was far more extreme than any of the differences created within my simulation—effectively echoing that making it to the charity stripe more often is a characteristic of teams that make the tournament over those that do not."
+  },
+  {
+    "objectID": "Project 3.html#load-libraries",
+    "href": "Project 3.html#load-libraries",
+    "title": "Free Throw Rate and Tournament Success",
+    "section": "",
+    "text": "library(tidyverse)\nlibrary(janitor)"
+  },
+  {
+    "objectID": "Project 3.html#read-and-prepare-data",
+    "href": "Project 3.html#read-and-prepare-data",
+    "title": "Free Throw Rate and Tournament Success",
+    "section": "2 2. Read and Prepare Data",
+    "text": "2 2. Read and Prepare Data\n\ncbb &lt;- read_csv(\"cbb.csv\") |&gt; clean_names()\n\ncbb &lt;- cbb |&gt; \n  mutate(made_tourney = if_else(postseason %in% c(\"2ND\", \"Champions\", \"E8\", \"F4\", \"R32\", \"R64\", \"R68\", \"S16\"), \"yes\", \"no\"))"
+  },
+  {
+    "objectID": "Project 3.html#explore-the-data",
+    "href": "Project 3.html#explore-the-data",
+    "title": "Free Throw Rate and Tournament Success",
+    "section": "3 3. Explore the Data",
+    "text": "3 3. Explore the Data\n\ncbb |&gt; \n  ggplot(aes(x = made_tourney, y = ftr, fill = made_tourney)) +\n  geom_boxplot() +\n  labs(\n    title = \"Free Throw Rate by Tournament Status\",\n    x = \"Made NCAA Tournament\",\n    y = \"Free Throw Rate (FTA/FGA)\") +\n  theme_minimal()"
+  },
+  {
+    "objectID": "Project 3.html#observed-statistic",
+    "href": "Project 3.html#observed-statistic",
+    "title": "Free Throw Rate and Tournament Success",
+    "section": "4 4. Observed Statistic",
+    "text": "4 4. Observed Statistic\n\nobserved_diff &lt;- cbb |&gt; \n  group_by(made_tourney) |&gt; \n  summarize(mean_ftr = mean(ftr, na.rm = TRUE)) |&gt; \n  pivot_wider(names_from = made_tourney, values_from = mean_ftr) |&gt; \n  mutate(diff = yes - no) |&gt; \n  pull(diff)\n\nobserved_diff\n\n[1] 1.349134"
+  },
+  {
+    "objectID": "Project 3.html#define-permutation-function",
+    "href": "Project 3.html#define-permutation-function",
+    "title": "Free Throw Rate and Tournament Success",
+    "section": "5 5. Define Permutation Function",
+    "text": "5 5. Define Permutation Function\n\npermute_diff &lt;- function(data) {\n  shuffled &lt;- sample(data$made_tourney)\n  perm_means &lt;- data |&gt; \n    mutate(shuffled_group = shuffled) |&gt; \n    group_by(shuffled_group) |&gt; \n    summarize(mean_ftr = mean(ftr, na.rm = TRUE), .groups = \"drop\")\n\n  if (!all(c(\"yes\", \"no\") %in% perm_means$shuffled_group)) {\n    return(NA_real_)\n  }\n\n  yes_mean &lt;- perm_means |&gt; filter(shuffled_group == \"yes\") |&gt; pull(mean_ftr)\n  no_mean &lt;- perm_means |&gt; filter(shuffled_group == \"no\") |&gt; pull(mean_ftr)\n\n  return(yes_mean - no_mean)\n}"
+  },
+  {
+    "objectID": "Project 3.html#run-simulation",
+    "href": "Project 3.html#run-simulation",
+    "title": "Free Throw Rate and Tournament Success",
+    "section": "6 6. Run Simulation",
+    "text": "6 6. Run Simulation\n\nset.seed(42)\nperm_diffs &lt;- map_dbl(1:1000, ~permute_diff(cbb))\nperm_diffs &lt;- perm_diffs[!is.na(perm_diffs)]"
+  },
+  {
+    "objectID": "Project 3.html#visualize-null-distribution",
+    "href": "Project 3.html#visualize-null-distribution",
+    "title": "Free Throw Rate and Tournament Success",
+    "section": "7 7. Visualize Null Distribution",
+    "text": "7 7. Visualize Null Distribution\n\ntibble(perm_diffs) |&gt; \n  ggplot(aes(x = perm_diffs)) +\n  geom_histogram(binwidth = 0.03, fill = \"skyblue\", color = \"black\") +\n  geom_vline(xintercept = observed_diff, color = \"red\", linetype = \"dashed\") +\n  labs(\n    title = \"Permutation Test: Free Throw Rate Differences\",\n    x = \"Difference in Mean FTR (Tournament - Non-Tournament)\",\n    y = \"Frequency\") +\n  theme_minimal()"
+  },
+  {
+    "objectID": "Project 3.html#calculate-p-value",
+    "href": "Project 3.html#calculate-p-value",
+    "title": "Free Throw Rate and Tournament Success",
+    "section": "8 8. Calculate P-value",
+    "text": "8 8. Calculate P-value\n\np_value &lt;- mean(abs(perm_diffs) &gt;= abs(observed_diff))\np_value\n\n[1] 0"
+  },
+  {
+    "objectID": "Project 3.html#full-context-of-problem",
+    "href": "Project 3.html#full-context-of-problem",
+    "title": "Free Throw Rate and Tournament Odds",
+    "section": "",
+    "text": "This project investigates whether NCAA Division I men’s basketball teams that make the tournament tend to get to the free throw line more often than those that don’t. The data set used (cbb.csv) includes team-level performance statistics from a full season, including each team’s free throw rate (FTR). This is defined as free throw attempts per field goal attempt. To examine this, we create a new variable, made_tourney, that categorizes teams as either having qualified for the NCAA tournament or not.\nThe null hypothesis is that there is no real difference in free throw rate between teams that make the tournament. For those that don’t, any observed difference is due to random chance. The alternative hypothesis is that teams who qualify for the tournament tend to have higher free throw rates. This relationship is worth looking into because a higher FTR often reflects physicality, aggressiveness, or the ability to draw fouls. Those traits may or may not contribute to team success leading up to the tournament. We begin by visualizing the distribution of FTR across both groups, and then conduct a permutation test to assess whether the observed difference is statistically significant.\n\nlibrary(tidyverse)\nlibrary(janitor)\nlibrary(infer)\n\n\ncbb &lt;- read_csv(\"cbb.csv\") |&gt; clean_names()\n\n# create a binary variable for whether the team made the tournament or not\ncbb &lt;- cbb |&gt; \n  mutate(made_tourney = if_else(postseason %in% c(\"2ND\", \"Champions\", \"E8\", \"F4\", \"R32\", \"R64\", \"R68\", \"S16\"), \"yes\", \"no\"))\n\n# keep only relevant columns\ncbb_filtered &lt;- cbb |&gt; \n  filter(made_tourney %in% c(\"yes\", \"no\")) |&gt; \n  select(ftr, made_tourney)"
+  },
+  {
+    "objectID": "Project 3.html#visualize-group-differences",
+    "href": "Project 3.html#visualize-group-differences",
+    "title": "Free Throw Rate and Tournament Odds",
+    "section": "2 Visualize Group Differences",
+    "text": "2 Visualize Group Differences\n\n# create a boxplot to compare the distribution of Free Throw Rate (FTR)\n# between tournament and non-tournament teams\nggplot(cbb_filtered, aes(x = made_tourney, y = ftr, fill = made_tourney)) +\n  geom_boxplot() +\n  labs(\n    title = \"Free Throw Rate by Tournament Status\",\n    x = \"Made NCAA Tournament\",\n    y = \"Free Throw Rate (FTA/FGA)\")"
+  },
+  {
+    "objectID": "Project 3.html#about-box-plot",
+    "href": "Project 3.html#about-box-plot",
+    "title": "Free Throw Rate and Tournament Odds",
+    "section": "3 About Box Plot",
+    "text": "3 About Box Plot\nThis box plot compares Free Throw Rate (FTR) between teams that made the NCAA tournament and those that didn’t. It shows that tournament teams generally have a higher median FTR, and their overall distribution is slightly shifted upward. This visual gives an early indication that teams reaching the tournament may be more likely to draw fouls and get to the free throw line.\n\n# calculate the observed difference in mean FTR between the two groups\nobs_diff &lt;- cbb_filtered |&gt; \n  specify(ftr ~ made_tourney) |&gt; \n  calculate(stat = \"diff in means\", order = c(\"yes\", \"no\"))\n\nobs_diff\n\nResponse: ftr (numeric)\nExplanatory: made_tourney (factor)\n# A tibble: 1 × 1\n   stat\n  &lt;dbl&gt;\n1  1.35"
+  },
+  {
+    "objectID": "Project 3.html#run-permutation-test",
+    "href": "Project 3.html#run-permutation-test",
+    "title": "Free Throw Rate and Tournament Odds",
+    "section": "4 Run Permutation Test",
+    "text": "4 Run Permutation Test\n\n# simulate the null distribution by randomly permuting group labels 1000 times\nset.seed(42)\nperm_results &lt;- cbb_filtered |&gt; \n  specify(ftr ~ made_tourney) |&gt; \n  hypothesize(null = \"independence\") |&gt; \n  generate(reps = 1000, type = \"permute\") |&gt; \n  calculate(stat = \"diff in means\", order = c(\"yes\", \"no\"))"
+  },
+  {
+    "objectID": "Project 3.html#plot-null-distribution",
+    "href": "Project 3.html#plot-null-distribution",
+    "title": "Free Throw Rate and Tournament Odds",
+    "section": "5 Plot Null Distribution",
+    "text": "5 Plot Null Distribution\n\n# create a histogram to visualize the null distribution of permuted differences\n# and overlay the observed difference as a red dashed line\nggplot(perm_results, aes(x = stat)) +\n  geom_histogram(binwidth = 0.05, fill = \"skyblue\", color = \"black\") +\n  geom_vline(xintercept = obs_diff$stat, color = \"red\", linetype = \"dashed\") +\n  labs(\n    title = \"Null Distribution of Free Throw Rate Differences\",\n    x = \"Difference in Mean FTR (Tournament - Non-Tournament)\",\n    y = \"Frequency\")"
+  },
+  {
+    "objectID": "Project 3.html#about-histogram",
+    "href": "Project 3.html#about-histogram",
+    "title": "Free Throw Rate and Tournament Odds",
+    "section": "6 About Histogram",
+    "text": "6 About Histogram\nThis graph shows simulated differences in Free Throw Rate, assuming no real relationship exists. The red dashed line represents the actual observed difference between tournament and non-tournament teams, which falls far to the right of most simulated values. This would suggest that the result is unlikely due to chance.\n\n# calculate p-value\np_val &lt;- mean(abs(perm_results$stat) &gt;= abs(obs_diff$stat))\np_val\n\n[1] 0"
+  },
+  {
+    "objectID": "Project 3.html#conclusion",
+    "href": "Project 3.html#conclusion",
+    "title": "Free Throw Rate and Tournament Odds",
+    "section": "7 Conclusion",
+    "text": "7 Conclusion\nUltimately, my permutation test found that teams that make the NCAA tournament have a statistically significantly higher Free Throw Rate than teams that do not, with a p-value of less than 0.001, meaning this difference is not due to chance. I found this by calculating the means of both populations’ free throw rates and performing a permutation test of my own, where I randomly shuffled the labels of whether or not teams made the NCAA tournament 1,000 times, hypothesizing that there was no association between tournament outcome and Free Throw Rate. I then plotted the observed difference based on iteration. I found that the actual difference in means I calculated was far more extreme than any of the differences created within my simulation—effectively echoing that making it to the charity stripe more often is a characteristic of teams that make the tournament over those that do not."
   }
 ]

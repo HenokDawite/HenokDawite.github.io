@@ -1,0 +1,109 @@
+---
+title: "Free Throw Rate and Tournament Odds"
+description: |
+  Do teams that make it to the NCAA tournament get to the free throw line more often than those that don’t? Using the cbb.csv dataset, which includes Division I men’s basketball stats, I examine whether a team’s free throw rate (FTR) — calculated as free throw attempts per field goal attempt — is linked to postseason qualification. A permutation test is used to simulate what we’d expect if free throw rate and tournament selection were unrelated.
+author: Henok Dawite
+date: Apr 2, 2025
+format: html
+execute:
+  warning: false
+  message: false
+toc: true
+number-sections: true
+about:
+  template: trestles
+  links: 
+    - text: "CBB Dataset"
+      href: "https://www.kaggle.com/datasets/andrewsundberg/college-basketball-dataset"
+---
+
+**Full Context of Problem**
+
+This project investigates whether NCAA Division I men’s basketball teams that make the tournament tend to get to the free throw line more often than those that don’t. The data set used (cbb.csv) includes team-level performance statistics from a full season, including each team’s free throw rate (FTR). This is defined as free throw attempts per field goal attempt. To examine this, we create a new variable, made_tourney, that categorizes teams as either having qualified for the NCAA tournament or not.
+
+The null hypothesis is that there is no real difference in free throw rate between teams that make the tournament. For those that don't, any observed difference is due to random chance. The alternative hypothesis is that teams who qualify for the tournament tend to have higher free throw rates. This relationship is worth looking into because a higher FTR often reflects physicality, aggressiveness, or the ability to draw fouls. Those traits may or may not contribute to team success leading up to the tournament. We begin by visualizing the distribution of FTR across both groups, and then conduct a permutation test to assess whether the observed difference is statistically significant.
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(infer)
+```
+
+```{r}
+cbb <- read_csv("cbb.csv") |> clean_names()
+
+# create a binary variable for whether the team made the tournament or not
+cbb <- cbb |> 
+  mutate(made_tourney = if_else(postseason %in% c("2ND", "Champions", "E8", "F4", "R32", "R64", "R68", "S16"), "yes", "no"))
+
+# keep only relevant columns
+cbb_filtered <- cbb |> 
+  filter(made_tourney %in% c("yes", "no")) |> 
+  select(ftr, made_tourney)
+```
+
+**Visualize Group Differences**
+
+```{r}
+# create a boxplot to compare the distribution of Free Throw Rate (FTR)
+# between tournament and non-tournament teams
+ggplot(cbb_filtered, aes(x = made_tourney, y = ftr, fill = made_tourney)) +
+  geom_boxplot() +
+  labs(
+    title = "Free Throw Rate by Tournament Status",
+    x = "Made NCAA Tournament",
+    y = "Free Throw Rate (FTA/FGA)")
+```
+
+**About Box Plot**
+
+This box plot compares Free Throw Rate (FTR) between teams that made the NCAA tournament and those that didn’t. It shows that tournament teams generally have a higher median FTR, and their overall distribution is slightly shifted upward. This visual gives an early indication that teams reaching the tournament may be more likely to draw fouls and get to the free throw line.
+
+```{r}
+# calculate the observed difference in mean FTR between the two groups
+obs_diff <- cbb_filtered |> 
+  specify(ftr ~ made_tourney) |> 
+  calculate(stat = "diff in means", order = c("yes", "no"))
+
+obs_diff
+```
+
+**Run Permutation Test**
+
+```{r}
+# simulate the null distribution by randomly permuting group labels 1000 times
+set.seed(42)
+perm_results <- cbb_filtered |> 
+  specify(ftr ~ made_tourney) |> 
+  hypothesize(null = "independence") |> 
+  generate(reps = 1000, type = "permute") |> 
+  calculate(stat = "diff in means", order = c("yes", "no"))
+```
+
+**Plot Null Distribution**
+
+```{r}
+# create a histogram to visualize the null distribution of permuted differences
+# and overlay the observed difference as a red dashed line
+ggplot(perm_results, aes(x = stat)) +
+  geom_histogram(binwidth = 0.05, fill = "skyblue", color = "black") +
+  geom_vline(xintercept = obs_diff$stat, color = "red", linetype = "dashed") +
+  labs(
+    title = "Null Distribution of Free Throw Rate Differences",
+    x = "Difference in Mean FTR (Tournament - Non-Tournament)",
+    y = "Frequency")
+```
+
+**About Histogram**
+
+This graph shows simulated differences in Free Throw Rate, assuming no real relationship exists. The red dashed line represents the actual observed difference between tournament and non-tournament teams, which falls far to the right of most simulated values. This would suggest that the result is unlikely due to chance.
+
+```{r}
+# calculate p-value
+p_val <- mean(abs(perm_results$stat) >= abs(obs_diff$stat))
+p_val
+```
+
+**Conclusion**
+
+Ultimately, my permutation test found that teams that make the NCAA tournament have a statistically significantly higher Free Throw Rate than teams that do not, with a p-value of less than 0.001, meaning this difference is not due to chance. I found this by calculating the means of both populations' free throw rates and performing a permutation test of my own, where I randomly shuffled the labels of whether or not teams made the NCAA tournament 1,000 times, hypothesizing that there was no association between tournament outcome and Free Throw Rate. I then plotted the observed difference based on iteration. I found that the actual difference in means I calculated was far more extreme than any of the differences created within my simulation—effectively echoing that making it to the charity stripe more often is a characteristic of teams that make the tournament over those that do not.
