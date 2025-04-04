@@ -16,7 +16,7 @@ website:
         - href: Project 2.qmd
           text: Netflix Movies/TV
         - href: Project 3.qmd
-          text: Free Throw Rate and Tourney Odds
+          text: Free Throw Rate & Tourney Odds
 
 format:
   html:
