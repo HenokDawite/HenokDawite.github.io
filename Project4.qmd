@@ -1,0 +1,46 @@
+---
+title: "Havasupai Tribe v. Arizona Board of Regents"
+author: "Henok Dawite"
+date: "April 19, 2025"
+format: html
+---
+
+**Introduction**
+
+Back in the early 2000s, the Havasupai Tribe—a small Indigenous community living in the Grand Canyon—trusted researchers at Arizona State University (ASU) with their blood samples. They believed the researchers were going to use the samples to help study diabetes, which was a growing concern in their community. But those samples weren’t just used for diabetes studies. Without the tribe’s knowledge or consent, the blood was later used for research on schizophrenia, inbreeding, and human migration (Van Assche et al., 2013; Harmon, 2010). The tribe was shocked and devastated.
+
+The situation eventually led to a lawsuit known as *Havasupai Tribe v. Arizona Board of Regents*. The core issue was that the research had crossed boundaries the tribe never agreed to, raising serious concerns about consent and respect. According to Van Assche et al. (2013), the forms may have allowed it on paper, but the tribe was never truly informed. What followed sparked broader questions about how researchers treat the people behind the data. Let’s now take a closer look at the ethical concerns raised by this case.
+
+**Did the Havasupai truly give permission for how their blood samples were used?**
+
+Technically, the researchers at ASU did have a consent form. It included broad language that mentioned “behavioral/medical disorders.” That’s what they later pointed to as permission for using the data in a wider range of studies. But what happened in practice was very different. Most Havasupai members didn’t read or speak English fluently, and the research was explained to them verbally. They were told it was a diabetes study, nothing more (Van Assche et al., 2013).
+
+So yes, there was a permission structure on paper. But ethically, that permission meant nothing. I believe the researchers didn’t follow through on making sure participants truly understood what they were agreeing to. As a result, the permission structure wasn’t really followed in any meaningful way.
+
+**Was the Havasupai Tribe’s genetic data kept private, or was it shared beyond what they agreed to?**
+
+From what I found in the sources, there’s no indication that the genetic data from the Havasupai Tribe was ever made publicly available in the way we usually think about open datasets. But that doesn’t mean the data wasn’t shared. In fact, some of the samples were passed on to other researchers outside of ASU, and at least one report said some were lost entirely due to a freezer malfunction (Van Assche et al., 2013). 
+
+Even if the data wasn’t posted online or made downloadable, the fact that it was shared without consent feels like a breach of privacy and respect. I don’t think it matters whether the data was technically “public” or not. What matters is that it was out of the tribe’s control, and to me, that feels just as harmful.
+
+**Were the blood samples used in ways that went beyond what the tribe had agreed to?**
+
+Absolutely. The tribe agreed to a diabetes study. That’s what they were told, and that’s what they wanted to help with. But instead, their samples were used for studies on things like schizophrenia and human migration. One study even suggested that the Havasupai people had migrated from Asia, which directly contradicted their spiritual belief that they originated in the Grand Canyon (Harmon, 2010).
+
+I think it’s one of the clearest examples of what can go wrong when researchers stretch the boundaries of what participants agreed to. The way the data was used left deep scars on the tribe. This all disrupted how they saw themselves, and fractured their relationship to their past.
+
+**Even if the samples were anonymized, could the research still harm the Havasupai as a group?**
+
+The researchers removed names from the samples. So technically, they were anonymized. But that didn’t mean the tribe wasn’t harmed. The studies clearly focused on the Havasupai as a group. And as Van Assche et al. (2013) explain, removing names doesn’t prevent what they call “dignitary harm,” the kind of damage that happens when a group’s identity and values are disrespected.
+
+For the Havasupai, the blood samples weren’t just data to them as is also considered sacred. Using them in ways the tribe didn’t approve of was more than a privacy issue. As I mentioned earlier, some of the samples had already been lost or handed over to outside researchers.
+
+**Conclusion**
+
+Ultimately, we need to make sure that consent is culturally appropriate and that we do not go beyond what participants consented to. We need to acknowledge positionality and use the research to benefit the community. We need to understand that data science is about human experience, not just data.
+
+References
+
+Van Assche, K., Gutwirth, S., & Sterckx, S. (2013). Protecting Dignitary Interests of Biobank Research Participants: Lessons from Havasupai Tribe v Arizona Board of Regents. *Law, Innovation and Technology*, 5(1), 54–84. https://doi.org/10.5235/17579961.5.1.54
+
+Harmon, A. (2010). Indian Tribe Wins Fight to Limit Research of Its DNA. *The New York Times*. https://www.nytimes.com/2010/04/22/us/22dna.html

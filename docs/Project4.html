@@ -7,10 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Henok Dawite">
-<meta name="dcterms.date" content="2025-04-02">
-<meta name="description" content="Do teams that make it to the NCAA tournament get to the free throw line more often than those that don’t? Using the cbb.csv dataset, which includes Division I men’s basketball stats, I examine whether a team’s free throw rate (FTR) — calculated as free throw attempts per field goal attempt — is linked to postseason qualification. A permutation test is used to simulate what we’d expect if free throw rate and tournament selection were unrelated.">
+<meta name="dcterms.date" content="2025-04-19">
 
-<title>Free Throw Rate and Tournament Odds – HenokDawite</title>
+<title>Havasupai Tribe v. Arizona Board of Regents – HenokDawite</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -70,6 +35,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
@@ -107,7 +73,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -149,6 +115,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="./Project 3.html">
  <span class="dropdown-text">Free Throw Rate &amp; Tourney Odds</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./Project4.html">
+ <span class="dropdown-text">Havasupai Tribe v. Arizona Board of Regents</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -162,146 +132,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
 <!-- main -->
-<div class="quarto-about-trestles">
-  <div class="about-entity">
+<main class="content" id="quarto-document-content">
+
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Free Throw Rate and Tournament Odds</h1>
+<h1 class="title">Havasupai Tribe v. Arizona Board of Regents</h1>
 </div>
-<div>
-  <div class="description">
-    <p>Do teams that make it to the NCAA tournament get to the free throw line more often than those that don’t? Using the cbb.csv dataset, which includes Division I men’s basketball stats, I examine whether a team’s free throw rate (FTR) — calculated as free throw attempts per field goal attempt — is linked to postseason qualification. A permutation test is used to simulate what we’d expect if free throw rate and tournament selection were unrelated.</p>
-  </div>
-</div>
+
+
+
 <div class="quarto-title-meta">
+
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
              <p>Henok Dawite </p>
           </div>
   </div>
+    
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 2, 2025</p>
+      <p class="date">April 19, 2025</p>
     </div>
   </div>
+  
+    
   </div>
+  
+
+
 </header>
-    <div class="about-links">
-  <a href="https://www.kaggle.com/datasets/andrewsundberg/college-basketball-dataset" class="about-link" rel="" target="">
-     <span class="about-link-text">CBB Dataset</span>
-  </a>
-</div>
-  </div>
-  <div class="about-contents"><main class="content" id="quarto-document-content">
-<p><strong>Full Context of Problem</strong></p>
-<p>This project investigates whether NCAA Division I men’s basketball teams that make the tournament tend to get to the free throw line more often than those that don’t. The data set used (cbb.csv) includes team-level performance statistics from a full season, including each team’s free throw rate (FTR). This is defined as free throw attempts per field goal attempt. To examine this, we create a new variable, made_tourney, that categorizes teams as either having qualified for the NCAA tournament or not.</p>
-<p>The null hypothesis is that there is no real difference in free throw rate between teams that make the tournament. For those that don’t, any observed difference is due to random chance. The alternative hypothesis is that teams who qualify for the tournament tend to have higher free throw rates. This relationship is worth looking into because a higher FTR often reflects physicality, aggressiveness, or the ability to draw fouls. Those traits may or may not contribute to team success leading up to the tournament. We begin by visualizing the distribution of FTR across both groups, and then conduct a permutation test to assess whether the observed difference is statistically significant.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cbb <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"cbb.csv"</span>) <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># create a binary variable for whether the team made the tournament or not</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>cbb <span class="ot">&lt;-</span> cbb <span class="sc">|&gt;</span> </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">made_tourney =</span> <span class="fu">if_else</span>(postseason <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"2ND"</span>, <span class="st">"Champions"</span>, <span class="st">"E8"</span>, <span class="st">"F4"</span>, <span class="st">"R32"</span>, <span class="st">"R64"</span>, <span class="st">"R68"</span>, <span class="st">"S16"</span>), <span class="st">"yes"</span>, <span class="st">"no"</span>))</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># keep only relevant columns</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>cbb_filtered <span class="ot">&lt;-</span> cbb <span class="sc">|&gt;</span> </span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(made_tourney <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"yes"</span>, <span class="st">"no"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ftr, made_tourney)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><strong>Visualize Group Differences</strong></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a boxplot to compare the distribution of Free Throw Rate (FTR)</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># between tournament and non-tournament teams</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cbb_filtered, <span class="fu">aes</span>(<span class="at">x =</span> made_tourney, <span class="at">y =</span> ftr, <span class="at">fill =</span> made_tourney)) <span class="sc">+</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Free Throw Rate by Tournament Status"</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Made NCAA Tournament"</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Free Throw Rate (FTA/FGA)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Project-3_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>About Box Plot</strong></p>
-<p>This box plot compares Free Throw Rate (FTR) between teams that made the NCAA tournament and those that didn’t. It shows that tournament teams generally have a higher median FTR, and their overall distribution is slightly shifted upward. This visual gives an early indication that teams reaching the tournament may be more likely to draw fouls and get to the free throw line.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the observed difference in mean FTR between the two groups</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>obs_diff <span class="ot">&lt;-</span> cbb_filtered <span class="sc">|&gt;</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(ftr <span class="sc">~</span> made_tourney) <span class="sc">|&gt;</span> </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"diff in means"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"yes"</span>, <span class="st">"no"</span>))</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>obs_diff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Response: ftr (numeric)
-Explanatory: made_tourney (factor)
-# A tibble: 1 × 1
-   stat
-  &lt;dbl&gt;
-1  1.35</code></pre>
-</div>
-</div>
-<p><strong>Run Permutation Test</strong></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate the null distribution by randomly permuting group labels 1000 times</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>perm_results <span class="ot">&lt;-</span> cbb_filtered <span class="sc">|&gt;</span> </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(ftr <span class="sc">~</span> made_tourney) <span class="sc">|&gt;</span> </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"diff in means"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"yes"</span>, <span class="st">"no"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><strong>Plot Null Distribution</strong></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a histogram to visualize the null distribution of permuted differences</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and overlay the observed difference as a red dashed line</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(perm_results, <span class="fu">aes</span>(<span class="at">x =</span> stat)) <span class="sc">+</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.05</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> obs_diff<span class="sc">$</span>stat, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Null Distribution of Free Throw Rate Differences"</span>,</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Difference in Mean FTR (Tournament - Non-Tournament)"</span>,</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Project-3_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>About Histogram</strong></p>
-<p>This graph shows simulated differences in Free Throw Rate, assuming no real relationship exists. The red dashed line represents the actual observed difference between tournament and non-tournament teams, which falls far to the right of most simulated values. This would suggest that the result is unlikely due to chance.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate p-value</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>p_val <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>(perm_results<span class="sc">$</span>stat) <span class="sc">&gt;=</span> <span class="fu">abs</span>(obs_diff<span class="sc">$</span>stat))</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>p_val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0</code></pre>
-</div>
-</div>
+
+
+<p><strong>Introduction</strong></p>
+<p>Back in the early 2000s, the Havasupai Tribe—a small Indigenous community living in the Grand Canyon—trusted researchers at Arizona State University (ASU) with their blood samples. They believed the researchers were going to use the samples to help study diabetes, which was a growing concern in their community. But those samples weren’t just used for diabetes studies. Without the tribe’s knowledge or consent, the blood was later used for research on schizophrenia, inbreeding, and human migration (Van Assche et al., 2013; Harmon, 2010). The tribe was shocked and devastated.</p>
+<p>The situation eventually led to a lawsuit known as <em>Havasupai Tribe v. Arizona Board of Regents</em>. The core issue was that the research had crossed boundaries the tribe never agreed to, raising serious concerns about consent and respect. According to Van Assche et al.&nbsp;(2013), the forms may have allowed it on paper, but the tribe was never truly informed. What followed sparked broader questions about how researchers treat the people behind the data. Let’s now take a closer look at the ethical concerns raised by this case.</p>
+<p><strong>Did the Havasupai truly give permission for how their blood samples were used?</strong></p>
+<p>Technically, the researchers at ASU did have a consent form. It included broad language that mentioned “behavioral/medical disorders.” That’s what they later pointed to as permission for using the data in a wider range of studies. But what happened in practice was very different. Most Havasupai members didn’t read or speak English fluently, and the research was explained to them verbally. They were told it was a diabetes study, nothing more (Van Assche et al., 2013).</p>
+<p>So yes, there was a permission structure on paper. But ethically, that permission meant nothing. I believe the researchers didn’t follow through on making sure participants truly understood what they were agreeing to. As a result, the permission structure wasn’t really followed in any meaningful way.</p>
+<p><strong>Was the Havasupai Tribe’s genetic data kept private, or was it shared beyond what they agreed to?</strong></p>
+<p>From what I found in the sources, there’s no indication that the genetic data from the Havasupai Tribe was ever made publicly available in the way we usually think about open datasets. But that doesn’t mean the data wasn’t shared. In fact, some of the samples were passed on to other researchers outside of ASU, and at least one report said some were lost entirely due to a freezer malfunction (Van Assche et al., 2013).&nbsp;</p>
+<p>Even if the data wasn’t posted online or made downloadable, the fact that it was shared without consent feels like a breach of privacy and respect. I don’t think it matters whether the data was technically “public” or not. What matters is that it was out of the tribe’s control, and to me, that feels just as harmful.</p>
+<p><strong>Were the blood samples used in ways that went beyond what the tribe had agreed to?</strong></p>
+<p>Absolutely. The tribe agreed to a diabetes study. That’s what they were told, and that’s what they wanted to help with. But instead, their samples were used for studies on things like schizophrenia and human migration. One study even suggested that the Havasupai people had migrated from Asia, which directly contradicted their spiritual belief that they originated in the Grand Canyon (Harmon, 2010).</p>
+<p>I think it’s one of the clearest examples of what can go wrong when researchers stretch the boundaries of what participants agreed to. The way the data was used left deep scars on the tribe. This all disrupted how they saw themselves, and fractured their relationship to their past.</p>
+<p><strong>Even if the samples were anonymized, could the research still harm the Havasupai as a group?</strong></p>
+<p>The researchers removed names from the samples. So technically, they were anonymized. But that didn’t mean the tribe wasn’t harmed. The studies clearly focused on the Havasupai as a group. And as Van Assche et al.&nbsp;(2013) explain, removing names doesn’t prevent what they call “dignitary harm,” the kind of damage that happens when a group’s identity and values are disrespected.</p>
+<p>For the Havasupai, the blood samples weren’t just data to them as is also considered sacred. Using them in ways the tribe didn’t approve of was more than a privacy issue. As I mentioned earlier, some of the samples had already been lost or handed over to outside researchers.</p>
 <p><strong>Conclusion</strong></p>
-<p>Ultimately, my permutation test found that teams that make the NCAA tournament have a statistically significantly higher Free Throw Rate than teams that do not, with a p-value of less than 0.001, meaning this difference is not due to chance. I found this by calculating the means of both populations’ free throw rates and performing a permutation test of my own, where I randomly shuffled the labels of whether or not teams made the NCAA tournament 1,000 times, hypothesizing that there was no association between tournament outcome and Free Throw Rate. I then plotted the observed difference based on iteration. I found that the actual difference in means I calculated was far more extreme than any of the differences created within my simulation—effectively echoing that making it to the free throw line more often is a characteristic of teams that make the tournament over those that do not.</p>
-<p>Data Source:</p>
-<p>Accessed via: <a href="https://www.kaggle.com/" class="uri">https://www.kaggle.com/</a></p>
-<p>Original Source: Kaggle</p>
+<p>Ultimately, we need to make sure that consent is culturally appropriate and that we do not go beyond what participants consented to. We need to acknowledge positionality and use the research to benefit the community. We need to understand that data science is about human experience, not just data.</p>
+<p>References</p>
+<p>Van Assche, K., Gutwirth, S., &amp; Sterckx, S. (2013). Protecting Dignitary Interests of Biobank Research Participants: Lessons from Havasupai Tribe v Arizona Board of Regents. <em>Law, Innovation and Technology</em>, 5(1), 54–84. https://doi.org/10.5235/17579961.5.1.54</p>
+<p>Harmon, A. (2010). Indian Tribe Wins Fight to Limit Research of Its DNA. <em>The New York Times</em>. https://www.nytimes.com/2010/04/22/us/22dna.html</p>
 
 
-</main></div>
-</div>
- <!-- /main -->
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -322,6 +213,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     
