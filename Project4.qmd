@@ -17,7 +17,7 @@ Technically, the researchers at ASU did have a consent form. It included broad l
 
 So yes, there was a permission structure on paper. But ethically, that permission meant nothing. I believe the researchers didn’t follow through on making sure participants truly understood what they were agreeing to. As a result, the permission structure wasn’t really followed in any meaningful way.
 
-**Was the Havasupai Tribe’s genetic data kept private, or was it shared beyond what they agreed to?**
+**Was the Havasupai Tribe’s genetic data kept private?**
 
 From what I found in the sources, there’s no indication that the genetic data from the Havasupai Tribe was ever made publicly available in the way we usually think about open datasets. But that doesn’t mean the data wasn’t shared. In fact, some of the samples were passed on to other researchers outside of ASU, and at least one report said some were lost entirely due to a freezer malfunction (Van Assche et al., 2013). 
 
