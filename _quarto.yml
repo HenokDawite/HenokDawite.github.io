@@ -20,6 +20,8 @@ website:
             text: Free Throw Rate & Tourney Odds
           - href: Project4.qmd
             text: Havasupai Tribe v. Arizona Board of Regents
+          - href: Project5.qmd
+            text: SQL
 
 format:
   html:
