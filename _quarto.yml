@@ -21,7 +21,7 @@ website:
           - href: Project4.qmd
             text: Havasupai Tribe v. Arizona Board of Regents
           - href: Project5.qmd
-            text: SQL
+            text: Exploring U.S. Policing Trends Through Data
 
 format:
   html:
