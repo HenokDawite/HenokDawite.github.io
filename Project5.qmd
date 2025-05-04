@@ -89,7 +89,7 @@ ORDER BY count DESC;
 ggplot(oakland_outcomes, aes(x = reorder(outcome, -count), y = percent)) +
   geom_col(fill = "lightblue", color = "black") +
   labs(
-    title = "Stop Outcomes in Oakland (2010–2014)",
+    title = "Stop Outcomes in Oakland (2013-2017)",
     x = "Stop Outcome",
     y = "Percentage of Total Stops"
   ) + 
