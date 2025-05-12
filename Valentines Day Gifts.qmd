@@ -1,7 +1,5 @@
 ---
 title: "Gift Giving"
-description: |
-  Analysis of Gift Spending by gender
 description: "Analysis of Gift Giving by Gender"
 author: Henok Dawite
 date: February 19, 2025
