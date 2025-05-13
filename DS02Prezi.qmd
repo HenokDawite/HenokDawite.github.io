@@ -91,3 +91,11 @@ execute:
 -   The data shows real disparities in search rates across race.\
 -   Simple analysis can bring out meaningful insights.\
 -   Public data like this is a powerful tool for accountability.
+
+------------------------------------------------------------------------
+
+## Citations
+
+Pierson, E., Corbett-Davies, S., & Goel, S. (2020). A large-scale analysis of racial disparities in police stops across the United States. *Nature Human Behaviour*, 4(7), 736–745. <https://doi.org/10.1038/s41562-020-0858-1>
+
+Data : Stanford Open Policing Project — <https://openpolicing.stanford.edu/data/>
