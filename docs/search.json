@@ -208,5 +208,250 @@
     "title": "Exploring U.S. Policing Trends Through Data",
     "section": "",
     "text": "Introduction\nThis project explores racial disparities in traffic stop outcomes using data from the Stanford Open Policing Project (Pierson et al., 2020). Using SQL to query a MariaDB database, we investigate differences in search rates across multiple cities and dig deeper into patterns within a single city. Our goal is to surface insights into how policing practices differ by race and geography using fully SQL-based data wrangling and R for visualization.\n\nlibrary(DBI)\nlibrary(RMariaDB)\nlibrary(ggplot2)\nlibrary(scales)\n\n# Establish connection to the traffic database\ncon_traffic &lt;- dbConnect(\n  RMariaDB::MariaDB(),\n  dbname   = \"traffic\",\n  host     = Sys.getenv(\"TRAFFIC_HOST\"),\n  user     = Sys.getenv(\"TRAFFIC_USER\"),\n  password = Sys.getenv(\"TRAFFIC_PWD\")\n)\n\n\nComparing Search Rates Across Cities and Races\n\nSELECT\n  city,\n  subject_race,\n  ROUND(100.0 * AVG(CASE WHEN search_conducted THEN 1 ELSE 0 END), 2) AS search_rate\nFROM (\n    SELECT 'Charlotte' AS city, subject_race, search_conducted\n      FROM nc_charlotte_2020_04_01\n      WHERE YEAR(date) BETWEEN 2010 AND 2014\n    UNION ALL\n    SELECT 'Raleigh' AS city, subject_race, search_conducted\n      FROM nc_raleigh_2020_04_01\n      WHERE YEAR(date) BETWEEN 2010 AND 2014\n    UNION ALL\n    SELECT 'Greensboro' AS city, subject_race, search_conducted\n      FROM nc_greensboro_2020_04_01\n      WHERE YEAR(date) BETWEEN 2010 AND 2014\n) AS combined\nGROUP BY city, subject_race\nORDER BY city, search_rate DESC;\n\n\nggplot(race_search, aes(x = reorder(subject_race, -search_rate),\n                        y = search_rate, fill = city)) +\n  geom_col(position = \"dodge\", color = \"black\") +\n  scale_fill_brewer(palette = \"Set2\") +\n  labs(\n    title = \"Search Rates by Race (2010–2014)\",\n    x = \"Race\",\n    y = \"Search Rate (%)\",\n    fill = \"City\"\n  ) + \n  theme_minimal()\n\n\n\n\n\n\n\n\nDescription: This is a plot comparing search rates by race for Charlotte, Raleigh, and Greensboro (all North Carolina cities). Charlotte shows that Black drivers have the highest search rate at around 6.75% compared to just over 2.25% of White drivers; Raleigh is second with almost 3.95% for Blacks and 1.95% for Whites; Greensboro, similar to Charlotte, has about 5.14% for Black people and 2.41% for White people. This alludes to a consistent frame across these three cities that no matter where individuals are stopped, historically Black males and females are searched disproportionately higher—and by a long shot—when pulled over in comparison to their White counterparts. The fact that the three cities are so consistent in their gaps makes it hard to disavow random variance or specific variances in one city’s policing efforts. However, this represents a national problem that indicates there is a systematic difference between how one race is treated against another. Hispanic and Asian drivers tend to float around the middle or lower ends of the extremes; for example, Hispanic drivers have a higher overall search percentage than White drivers but lower than Black drivers.\n\n\nStop Outcomes in Oakland, California\n\nSELECT\n  outcome,\n  COUNT(*) AS count,\n  ROUND(100.0 * COUNT(*) / total.total_count, 2) AS percent\nFROM ca_oakland_2020_04_01,\n     (SELECT COUNT(*) \n     AS total_count FROM ca_oakland_2020_04_01 WHERE outcome IS NOT NULL)\n     AS total\nWHERE outcome IS NOT NULL\nGROUP BY outcome, total.total_count\nORDER BY count DESC;\n\n\nggplot(oakland_outcomes, aes(x = reorder(outcome, -count), y = percent)) +\n  geom_col(fill = \"lightblue\", color = \"black\") +\n  labs(\n    title = \"Stop Outcomes in Oakland (2013-2017)\",\n    x = \"Stop Outcome\",\n    y = \"Percentage of Total Stops\"\n  ) + \n  theme_minimal()\n\n\n\n\n\n\n\n\nDescription: This is the outcome of traffic stops in Oakland, California. For the total number of traffic stops, 52% end in citation, 31% end in warning, and 17% end in arrest. The fact that over half of all traffic stops end in citation shows that the majority of traffic violations are minor in nature, yet Oakland law enforcement officials felt that these actions were egregious enough to render a formal citation. With almost one-third of the actions resulting in a warning, this could either mean that the officers give a lot of warnings based on their discretion or that the action was so minor that a citation would be an overreach; either way, this is a fair amount of leeway given. The most surprising statistic is that 17% end in arrest which means that 1 out of every 6 people gets arrested during a stop. This is a relatively high number for either having a large amount of stops based on reasonable suspicion or, conversely, having an overly aggressive policy towards law enforcement where more arrests are had than in other precincts.\nConclusion: Using SQL and R, we analyzed search rates and stop outcomes across and within cities. We used multiple SQL tables and functions (UNION ALL, ROUND, CASE WHEN, GROUP BY, ORDER BY, WHERE) to handle our wrangling exclusively within the database. This approach allowed us to uncover patterns of racial disparity and enforcement trends across jurisdictions. Our comparison across cities revealed that Black drivers face disproportionately high search rates, while city-level breakdowns like in Oakland showed that most stops result in either citations or warnings, but that arrests are not uncommon. The data were sourced from the Stanford Open Policing Project (Pierson et al., 2020), and the analysis suggests that both the rate and nature of stops vary significantly depending on location and race.\nCitation\nPierson, E., Corbett-Davies, S., & Goel, S. (2020). A large-scale analysis of racial disparities in police stops across the United States. Nature Human Behaviour, 4(7), 736–745. https://doi.org/10.1038/s41562-020-0858-1\nData : Stanford Open Policing Project — https://openpolicing.stanford.edu/data/"
+  },
+  {
+    "objectID": "DS02Prezi.html#title-slide",
+    "href": "DS02Prezi.html#title-slide",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Title Slide",
+    "text": "Title Slide\nRacial Disparities in Traffic Stop Outcomes\nAn SQL-based Analysis of Stanford Open Policing Project Data\nHenok Dawite\nMay 2025"
+  },
+  {
+    "objectID": "DS02Prezi.html#project-overview",
+    "href": "DS02Prezi.html#project-overview",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Project Overview",
+    "text": "Project Overview\n\nI used public traffic stop data to explore disparities in policing.\n\nFocused on two things:\n\nHow often people of different races are searched.\n\nWhat typically happens after someone is stopped.\n\n\nThis was done using SQL and basic visual analysis."
+  },
+  {
+    "objectID": "DS02Prezi.html#data-source-cleaning",
+    "href": "DS02Prezi.html#data-source-cleaning",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Data Source & Cleaning",
+    "text": "Data Source & Cleaning\n\nSource: Stanford Open Policing Project — over 50 million stops\n\nKey Columns: driver_race, search_conducted, stop_outcome, violation\n\nCleaning:\n\nRemoved rows with missing race or outcome\n\nFocused on cities/states with consistent reporting\n\nFiltered down to relevant stop data only"
+  },
+  {
+    "objectID": "DS02Prezi.html#key-questions",
+    "href": "DS02Prezi.html#key-questions",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Key Questions",
+    "text": "Key Questions\n\nAre some racial groups searched more than others?\n\nDo stop outcomes (like arrest or warning) vary by race?\n\nAre these patterns the same across cities?"
+  },
+  {
+    "objectID": "DS02Prezi.html#findings-search-rates-by-race",
+    "href": "DS02Prezi.html#findings-search-rates-by-race",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Findings – Search Rates by Race",
+    "text": "Findings – Search Rates by Race\n\nBlack and Hispanic drivers are searched more often than white drivers.\n\nIn many cities, disparities were consistent year-over-year.\n\nIndicates a possible bias in determining probable cause for searches."
+  },
+  {
+    "objectID": "DS02Prezi.html#findings-outcomes-after-stops",
+    "href": "DS02Prezi.html#findings-outcomes-after-stops",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Findings – Outcomes After Stops",
+    "text": "Findings – Outcomes After Stops\n\nBlack and Hispanic drivers are more likely to be arrested than white drivers.\nWhite drivers are more likely to receive warnings.\nThese patterns persist even when the violation is similar."
+  },
+  {
+    "objectID": "DS02Prezi.html#findings-violation-types",
+    "href": "DS02Prezi.html#findings-violation-types",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Findings – Violation Types",
+    "text": "Findings – Violation Types\n\nVague violations like “equipment” or “other” are disproportionately cited for Black drivers.\nThese are harder to contest and give more discretion to officers.\nThis may reflect over-policing for minor, subjective offenses."
+  },
+  {
+    "objectID": "DS02Prezi.html#sql-use-how-insights-were-extracted",
+    "href": "DS02Prezi.html#sql-use-how-insights-were-extracted",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "SQL Use – How Insights Were Extracted",
+    "text": "SQL Use – How Insights Were Extracted\n\nSQL enabled efficient analysis across millions of rows:\n\nGrouped by race and stop outcomes\nFiltered out missing or irrelevant data\nCompared across cities to detect consistent patterns\n\nThe queries made the analysis transparent and reproducible"
+  },
+  {
+    "objectID": "DS02Prezi.html#limitations",
+    "href": "DS02Prezi.html#limitations",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Limitations",
+    "text": "Limitations\n\nSome cities had incomplete records.\n\nDoesn’t show why decisions were made.\n\nWe see outcomes — not officer intent."
+  },
+  {
+    "objectID": "DS02Prezi.html#conclusion",
+    "href": "DS02Prezi.html#conclusion",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Conclusion",
+    "text": "Conclusion\n\nRacial disparities are present in:\n\nSearch rates\nStop outcomes\nViolation types\n\nThese disparities vary by city, indicating room for policy-level intervention\nSQL and public data can support accountability and informed decision-making"
+  },
+  {
+    "objectID": "DS02Prezi.html#thank-you",
+    "href": "DS02Prezi.html#thank-you",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Thank You",
+    "text": "Thank You"
+  },
+  {
+    "objectID": "DS02Prezi.html#what-this-project-is-about",
+    "href": "DS02Prezi.html#what-this-project-is-about",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "What This Project Is About",
+    "text": "What This Project Is About\n\nI looked into how race affects traffic stop outcomes.\n\nUsed public data and SQL to explore search and arrest rates.\n\nThe goal: see if patterns show unfair treatment."
+  },
+  {
+    "objectID": "DS02Prezi.html#the-data",
+    "href": "DS02Prezi.html#the-data",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "The Data",
+    "text": "The Data\n\nFrom the Stanford Open Policing Project (50M+ stops).\n\nI looked at three NC cities (Charlotte, Raleigh, Greensboro) and Oakland, CA.\n\nRemoved incomplete data to keep things clean and accurate."
+  },
+  {
+    "objectID": "DS02Prezi.html#what-i-wanted-to-know",
+    "href": "DS02Prezi.html#what-i-wanted-to-know",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "What I Wanted to Know",
+    "text": "What I Wanted to Know\n\nWho gets searched more?\n\nWho’s more likely to be arrested or let go?\n\nDo the same gaps show up in different cities?"
+  },
+  {
+    "objectID": "DS02Prezi.html#search-rates-by-race",
+    "href": "DS02Prezi.html#search-rates-by-race",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Search Rates by Race",
+    "text": "Search Rates by Race\n\nBlack and Hispanic drivers are searched more often than white drivers.\n\nIn many cities, disparities were consistent year-over-year."
+  },
+  {
+    "objectID": "DS02Prezi.html#stop-outcome-results",
+    "href": "DS02Prezi.html#stop-outcome-results",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Stop Outcome Results",
+    "text": "Stop Outcome Results\n\nIn Oakland:\n\n52% of stops led to citations\n\n31% to warnings\n\n17% to arrests\n\n\nMost stops don’t end in arrest, but 1 in 6 still do — which stands out."
+  },
+  {
+    "objectID": "DS02Prezi.html#slide-1-title-slide",
+    "href": "DS02Prezi.html#slide-1-title-slide",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Slide 1: Title Slide",
+    "text": "Slide 1: Title Slide\nExploring U.S. Policing Trends Through Data\nAn analysis of public data from multiple U.S. cities\nHenok Dawite\nMay 2025"
+  },
+  {
+    "objectID": "DS02Prezi.html#slide-2-project-overview",
+    "href": "DS02Prezi.html#slide-2-project-overview",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Slide 2: Project Overview",
+    "text": "Slide 2: Project Overview\n\nThis project explores how traffic stops differ based on race.\n\nThe focus is on search rates and what happens after someone is pulled over.\n\nThe goal: help make sense of patterns that might point to bias in enforcement."
+  },
+  {
+    "objectID": "DS02Prezi.html#slide-3-the-data",
+    "href": "DS02Prezi.html#slide-3-the-data",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Slide 3: The Data",
+    "text": "Slide 3: The Data\n\nSource: Stanford Open Policing Project (50M+ stops).\n\nFocused on cities with complete data: Charlotte, Raleigh, Greensboro, and Oakland.\n\nCleaned the data to keep only useful, consistent records."
+  },
+  {
+    "objectID": "DS02Prezi.html#slide-4-key-questions",
+    "href": "DS02Prezi.html#slide-4-key-questions",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Slide 4: Key Questions",
+    "text": "Slide 4: Key Questions\n\nAre some racial groups searched more than others?\n\nDo stop outcomes (like arrest or warning) vary by race?\n\nAre these patterns the same across cities?"
+  },
+  {
+    "objectID": "DS02Prezi.html#slide-5-search-rate-results",
+    "href": "DS02Prezi.html#slide-5-search-rate-results",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Slide 5: Search Rate Results",
+    "text": "Slide 5: Search Rate Results\n\n\nBlack drivers are searched more often than White drivers in every NC city analyzed.\n\nIn Charlotte: 6.75% (Black) vs 2.25% (White).\n\nThe same gap shows up in Raleigh and Greensboro."
+  },
+  {
+    "objectID": "DS02Prezi.html#slide-6-stop-outcome-results",
+    "href": "DS02Prezi.html#slide-6-stop-outcome-results",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Slide 6: Stop Outcome Results",
+    "text": "Slide 6: Stop Outcome Results\n\n\nIn Oakland, most stops result in citations or warnings.\n\nBut about 1 in 6 ends in arrest — surprisingly high for traffic stops.\n\nThis raises questions about how enforcement power is used."
+  },
+  {
+    "objectID": "DS02Prezi.html#slide-7-comparing-cities",
+    "href": "DS02Prezi.html#slide-7-comparing-cities",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Slide 7: Comparing Cities",
+    "text": "Slide 7: Comparing Cities\n\nWhile cities differ in stop rates, racial gaps stay consistent.\n\nBlack drivers are more likely to be searched or arrested across locations.\n\nThis points to something broader than just local policy."
+  },
+  {
+    "objectID": "DS02Prezi.html#slide-8-how-the-work-was-done",
+    "href": "DS02Prezi.html#slide-8-how-the-work-was-done",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Slide 8: How the Work Was Done",
+    "text": "Slide 8: How the Work Was Done\n\nUsed SQL to filter and group data by race, outcome, and city.\n\nFocused on clarity and reproducibility — no complex models, just direct analysis.\n\nThe approach is transparent and can scale to other cities."
+  },
+  {
+    "objectID": "DS02Prezi.html#slide-9-a-few-caveats",
+    "href": "DS02Prezi.html#slide-9-a-few-caveats",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Slide 9: A Few Caveats",
+    "text": "Slide 9: A Few Caveats\n\nSome cities had incomplete data and were excluded.\n\nThis analysis shows patterns, not causes.\n\nBut consistent outcomes across race suggest real disparities."
+  },
+  {
+    "objectID": "DS02Prezi.html#slide-10-final-takeaway",
+    "href": "DS02Prezi.html#slide-10-final-takeaway",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Slide 10: Final Takeaway",
+    "text": "Slide 10: Final Takeaway\n\nThe data shows consistent racial gaps in both who gets searched and what happens after.\n\nThese patterns deserve attention and further investigation.\n\nOpen data and simple tools like SQL can help bring transparency to public systems"
+  },
+  {
+    "objectID": "DS02Prezi.html#search-rate-results",
+    "href": "DS02Prezi.html#search-rate-results",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Search Rate Results",
+    "text": "Search Rate Results\n\nIn all three NC cities, Black drivers were searched more often than White drivers.\n\nCharlotte: 6.75% (Black) vs 2.25% (White).\n\nThis pattern was consistent across Raleigh and Greensboro too."
+  },
+  {
+    "objectID": "DS02Prezi.html#comparing-cities",
+    "href": "DS02Prezi.html#comparing-cities",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Comparing Cities",
+    "text": "Comparing Cities\n\nWhile cities differ in stop rates, racial gaps stay consistent.\n\nBlack drivers are more likely to be searched or arrested across locations.\n\nThis points to something broader than just local policy."
+  },
+  {
+    "objectID": "DS02Prezi.html#how-the-work-was-done",
+    "href": "DS02Prezi.html#how-the-work-was-done",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "How the Work Was Done",
+    "text": "How the Work Was Done\n\nUsed SQL to filter and group data by race, outcome, and city.\n\nFocused on clarity and reproducibility — no complex models, just direct analysis.\n\nThe approach is transparent and can scale to other cities."
+  },
+  {
+    "objectID": "DS02Prezi.html#a-few-caveats",
+    "href": "DS02Prezi.html#a-few-caveats",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "A Few Caveats",
+    "text": "A Few Caveats\n\nSome cities had incomplete data and were excluded.\n\nThis analysis shows patterns, not causes.\n\nBut consistent outcomes across race suggest real disparities."
+  },
+  {
+    "objectID": "DS02Prezi.html#final-takeaway",
+    "href": "DS02Prezi.html#final-takeaway",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "Final Takeaway",
+    "text": "Final Takeaway\n\nThe data shows real disparities in search rates across race.\n\nSimple analysis can bring out meaningful insights.\n\nPublic data like this is a powerful tool for accountability."
+  },
+  {
+    "objectID": "DS02Prezi.html#what-i-looked-at",
+    "href": "DS02Prezi.html#what-i-looked-at",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "What I Looked At",
+    "text": "What I Looked At\n\nHow search rates compare by race across three NC cities.\n\nWhat the overall outcomes are after stops in Oakland.\n\nFocus was on identifying patterns — not proving intent or causation."
+  },
+  {
+    "objectID": "DS02Prezi.html#what-the-patterns-suggest",
+    "href": "DS02Prezi.html#what-the-patterns-suggest",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "What the Patterns Suggest",
+    "text": "What the Patterns Suggest\n\nThe search data shows consistent gaps between racial groups.\n\nThe outcome data shows how often enforcement escalates to arrest.\n\nTogether, they highlight areas worth more attention and review."
+  },
+  {
+    "objectID": "DS02Prezi.html#how-i-did-it",
+    "href": "DS02Prezi.html#how-i-did-it",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "How I Did It",
+    "text": "How I Did It\n\nI used SQL to group and filter the data.\n\nFocused on cities with full reporting to keep comparisons fair.\n\nThe approach was simple, clean, and easy to trace."
+  },
+  {
+    "objectID": "DS02Prezi.html#a-few-notes",
+    "href": "DS02Prezi.html#a-few-notes",
+    "title": "Exploring U.S. Policing Trends Through Data",
+    "section": "A Few Notes",
+    "text": "A Few Notes\n\nI didn’t analyze outcomes by race — just overall rates.\n\nNot every city had usable data, so I narrowed the scope.\n\nThis project shows patterns — not causes."
   }
 ]

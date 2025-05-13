@@ -1,0 +1,93 @@
+---
+title: "Exploring U.S. Policing Trends Through Data"
+author: "Henok Dawite"
+subtitle: "May 13, 2025"
+format:
+  revealjs:
+    scrollable: true
+    slide-number: true
+    show-slide-number: all
+    embed-resources: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Project Overview
+
+-   I used public traffic stop data to explore disparities in policing.\
+-   Focused on two things:
+    1.  How often people of different races are searched.\
+    2.  What typically happens after someone is stopped.\
+-   This was done using SQL and basic visual analysis.
+
+------------------------------------------------------------------------
+
+## The Data
+
+-   From the Stanford Open Policing Project (50M+ stops).\
+-   I looked at three NC cities (Charlotte, Raleigh, Greensboro) and Oakland, CA.\
+-   Removed incomplete data to keep things clean and accurate.
+
+------------------------------------------------------------------------
+
+## What I Looked At
+
+-   How search rates compare by race across three NC cities.\
+-   What the overall outcomes are after stops in Oakland.\
+-   Focus was on identifying patterns — not proving intent or causation.
+
+------------------------------------------------------------------------
+
+<img src="search.png" alt="Search Rates by Race" width="700"/>
+
+## Search Rate Results
+
+-   In all three NC cities, Black drivers were searched more often than White drivers.\
+-   Charlotte: 6.75% (Black) vs 2.25% (White).\
+-   This pattern was consistent across Raleigh and Greensboro too.
+
+------------------------------------------------------------------------
+
+<img src="outcome.png" alt="Stop Outcomes in Oakland" width="700"/>
+
+## Stop Outcome Results
+
+-   In Oakland:
+    -   52% of stops led to citations\
+    -   31% to warnings\
+    -   17% to arrests\
+-   Most stops don’t end in arrest, but 1 in 6 still do — which stands out.
+
+------------------------------------------------------------------------
+
+## What the Patterns Suggest
+
+-   The search data shows consistent gaps between racial groups.\
+-   The outcome data shows how often enforcement escalates to arrest.\
+-   Together, they highlight areas worth more attention and review.
+
+------------------------------------------------------------------------
+
+## How I Did It
+
+-   I used SQL to group and filter the data.\
+-   Focused on cities with full reporting to keep comparisons fair.\
+-   The approach was simple, clean, and easy to trace.
+
+------------------------------------------------------------------------
+
+## A Few Notes
+
+-   I didn’t analyze outcomes by race — just overall rates.\
+-   Not every city had usable data, so I narrowed the scope.\
+-   This project shows patterns — not causes.
+
+------------------------------------------------------------------------
+
+## Final Takeaway
+
+-   The data shows real disparities in search rates across race.\
+-   Simple analysis can bring out meaningful insights.\
+-   Public data like this is a powerful tool for accountability.
