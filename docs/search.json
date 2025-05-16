@@ -16,16 +16,16 @@
   {
     "objectID": "Valentines Day Gifts.html",
     "href": "Valentines Day Gifts.html",
-    "title": "Valentines Day Gifts",
+    "title": "Gift Giving",
     "section": "",
-    "text": "Attaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union"
+    "text": "This analysis examines Valentine’s Day gift-giving patterns across different genders. The dataset provides information on the percentage of men and women who purchase various categories of gifts for Valentine’s Day, offering insights into consumer behavior and gender-based preferences during this holiday.\n\n\n\n\n\n\n\n\n\n\n\n\nMock, Thomas. (2024). “Valentine’s Day Consumer Data.” TidyTuesday. R for Data Science Online Learning Community. Week 7, 2024-02-13. https://github.com/rfordatascience/tidytuesday/tree/master/data/2024/2024-02-13/gifts.csv\nNational Retail Federation and Prosper Insights & Analytics. (2024). “Valentine’s Day Data Center: Annual Valentine’s Day Spending Survey.” National Retail Federation. Retrieved from https://nrf.com/topics/holiday-and-seasonal-trends/valentines-day/valentines-day-data-center. Survey of 7,616 adult consumers conducted January 2-9, 2024, with a margin of error of plus or minus 1.1 percentage points."
   },
   {
     "objectID": "Meteorite falls.html",
     "href": "Meteorite falls.html",
     "title": "Meteorite falls",
     "section": "",
-    "text": "suppressMessages(library(ggplot2))\nsuppressMessages(library(dplyr))\n\n# Load dataset\nmeteorites &lt;- read.csv(\"meteorites.csv\")\n\n# Data preparation\nmeteorites_clean &lt;- meteorites |&gt;\n  filter(!is.na(fall)) |&gt;\n  group_by(fall) |&gt;\n  summarise(count = n(), .groups = 'drop')\n\n# Plot\nggplot(meteorites_clean, aes(x = fall, y = count, fill = fall)) +\n  geom_bar(stat = \"identity\") +\n  labs(title = \"Meteorite Falls vs. Finds\",\n       x = \"Event Type (Fall = Observed Fall, Find = Later Discovery)\",\n       y = \"Number of Meteorites\") +\n  theme_minimal()"
+    "text": "This analysis explores meteorite data from The Meteoritical Society, examining the difference between meteorites that were observed falling to Earth and later recovered (“falls”) versus those that were discovered without anyone witnessing the fall (“finds”). Meteorites provide valuable insights into the composition of objects in our solar system and can help scientists understand the formation and evolution of planetary bodies.\n\n\n\n\n\n\n\n\n\n\n\n\nFirke, Thomas. (2019). “Meteorites.” TidyTuesday. R for Data Science Online Learning Community. Week 24, 2019-06-11. https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-06-11/meteorites.csv\nThe Meteoritical Society. (2019). “Meteorite Landings.” NASA Open Data Portal. Retrieved from https://data.nasa.gov/Space-Science/Meteorite-Landings/gh4g-9sfh. The data was collected and maintained by The Meteoritical Society and made available through NASA’s Open Data Portal."
   },
   {
     "objectID": "Project 2.html",
@@ -460,5 +460,19 @@
     "title": "Exploring U.S. Policing Trends Through Data",
     "section": "Citations",
     "text": "Citations\nPierson, E., Corbett-Davies, S., & Goel, S. (2020). A large-scale analysis of racial disparities in police stops across the United States. Nature Human Behaviour, 4(7), 736–745. https://doi.org/10.1038/s41562-020-0858-1\nData : Stanford Open Policing Project — https://openpolicing.stanford.edu/data/"
+  },
+  {
+    "objectID": "Meteorite falls.html#introduction",
+    "href": "Meteorite falls.html#introduction",
+    "title": "Meteorite falls",
+    "section": "",
+    "text": "This analysis explores meteorite data from The Meteoritical Society, examining the difference between meteorites that were observed falling to Earth and later recovered (“falls”) versus those that were discovered without anyone witnessing the fall (“finds”). Meteorites provide valuable insights into the composition of objects in our solar system and can help scientists understand the formation and evolution of planetary bodies.\n\n\n\n\n\n\n\n\n\n\n\n\nFirke, Thomas. (2019). “Meteorites.” TidyTuesday. R for Data Science Online Learning Community. Week 24, 2019-06-11. https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-06-11/meteorites.csv\nThe Meteoritical Society. (2019). “Meteorite Landings.” NASA Open Data Portal. Retrieved from https://data.nasa.gov/Space-Science/Meteorite-Landings/gh4g-9sfh. The data was collected and maintained by The Meteoritical Society and made available through NASA’s Open Data Portal."
+  },
+  {
+    "objectID": "Valentines Day Gifts.html#introduction",
+    "href": "Valentines Day Gifts.html#introduction",
+    "title": "Gift Giving",
+    "section": "",
+    "text": "This analysis examines Valentine’s Day gift-giving patterns across different genders. The dataset provides information on the percentage of men and women who purchase various categories of gifts for Valentine’s Day, offering insights into consumer behavior and gender-based preferences during this holiday.\n\n\n\n\n\n\n\n\n\n\n\n\nMock, Thomas. (2024). “Valentine’s Day Consumer Data.” TidyTuesday. R for Data Science Online Learning Community. Week 7, 2024-02-13. https://github.com/rfordatascience/tidytuesday/tree/master/data/2024/2024-02-13/gifts.csv\nNational Retail Federation and Prosper Insights & Analytics. (2024). “Valentine’s Day Data Center: Annual Valentine’s Day Spending Survey.” National Retail Federation. Retrieved from https://nrf.com/topics/holiday-and-seasonal-trends/valentines-day/valentines-day-data-center. Survey of 7,616 adult consumers conducted January 2-9, 2024, with a margin of error of plus or minus 1.1 percentage points."
   }
 ]
