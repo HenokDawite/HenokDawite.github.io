@@ -6,6 +6,10 @@ date: February 19, 2025
 format: html
 ---
 
+## Introduction
+
+This analysis examines Valentine's Day gift-giving patterns across different genders. The dataset provides information on the percentage of men and women who purchase various categories of gifts for Valentine's Day, offering insights into consumer behavior and gender-based preferences during this holiday.
+
 ```{r, echo=FALSE}
 suppressMessages(library(ggplot2))
 suppressMessages(library(dplyr))
@@ -29,3 +33,9 @@ ggplot(gifts_long, aes(x = GiftCategory, y = Percentage, fill = Gender)) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
+
+### Citations
+
+-   Mock, Thomas. (2024). "Valentine's Day Consumer Data." TidyTuesday. R for Data Science Online Learning Community. Week 7, 2024-02-13. <https://github.com/rfordatascience/tidytuesday/tree/master/data/2024/2024-02-13/gifts.csv>
+
+-   National Retail Federation and Prosper Insights & Analytics. (2024). "Valentine's Day Data Center: Annual Valentine's Day Spending Survey." National Retail Federation. Retrieved from <https://nrf.com/topics/holiday-and-seasonal-trends/valentines-day/valentines-day-data-center>. Survey of 7,616 adult consumers conducted January 2-9, 2024, with a margin of error of plus or minus 1.1 percentage points.
