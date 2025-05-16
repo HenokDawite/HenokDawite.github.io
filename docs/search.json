@@ -18,14 +18,14 @@
     "href": "Valentines Day Gifts.html",
     "title": "Gift Giving",
     "section": "",
-    "text": "This analysis examines Valentine’s Day gift-giving patterns across different genders. The dataset provides information on the percentage of men and women who purchase various categories of gifts for Valentine’s Day, offering insights into consumer behavior and gender-based preferences during this holiday.\n\n\n\n\n\n\n\n\n\n\n\n\nMock, Thomas. (2024). “Valentine’s Day Consumer Data.” TidyTuesday. R for Data Science Online Learning Community. Week 7, 2024-02-13. https://github.com/rfordatascience/tidytuesday/tree/master/data/2024/2024-02-13/gifts.csv\nNational Retail Federation and Prosper Insights & Analytics. (2024). “Valentine’s Day Data Center: Annual Valentine’s Day Spending Survey.” National Retail Federation. Retrieved from https://nrf.com/topics/holiday-and-seasonal-trends/valentines-day/valentines-day-data-center. Survey of 7,616 adult consumers conducted January 2-9, 2024, with a margin of error of plus or minus 1.1 percentage points."
+    "text": "This analysis examines Valentine’s Day gift-giving patterns across different genders. The dataset provides information on the percentage of men and women who purchase various categories of gifts for Valentine’s Day, offering insights into consumer behavior and gender-based preferences during this holiday."
   },
   {
     "objectID": "Meteorite falls.html",
     "href": "Meteorite falls.html",
     "title": "Meteorite falls",
     "section": "",
-    "text": "This analysis explores meteorite data from The Meteoritical Society, examining the difference between meteorites that were observed falling to Earth and later recovered (“falls”) versus those that were discovered without anyone witnessing the fall (“finds”). Meteorites provide valuable insights into the composition of objects in our solar system and can help scientists understand the formation and evolution of planetary bodies.\n\n\n\n\n\n\n\n\n\n\n\n\nFirke, Thomas. (2019). “Meteorites.” TidyTuesday. R for Data Science Online Learning Community. Week 24, 2019-06-11. https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-06-11/meteorites.csv\nThe Meteoritical Society. (2019). “Meteorite Landings.” NASA Open Data Portal. Retrieved from https://data.nasa.gov/Space-Science/Meteorite-Landings/gh4g-9sfh. The data was collected and maintained by The Meteoritical Society and made available through NASA’s Open Data Portal."
+    "text": "This analysis explores meteorite data from The Meteoritical Society, examining the difference between meteorites that were observed falling to Earth and later recovered (“falls”) versus those that were discovered without anyone witnessing the fall (“finds”). Meteorites provide valuable insights into the composition of objects in our solar system and can help scientists understand the formation and evolution of planetary bodies."
   },
   {
     "objectID": "Project 2.html",
@@ -466,14 +466,14 @@
     "href": "Meteorite falls.html#introduction",
     "title": "Meteorite falls",
     "section": "",
-    "text": "This analysis explores meteorite data from The Meteoritical Society, examining the difference between meteorites that were observed falling to Earth and later recovered (“falls”) versus those that were discovered without anyone witnessing the fall (“finds”). Meteorites provide valuable insights into the composition of objects in our solar system and can help scientists understand the formation and evolution of planetary bodies.\n\n\n\n\n\n\n\n\n\n\n\n\nFirke, Thomas. (2019). “Meteorites.” TidyTuesday. R for Data Science Online Learning Community. Week 24, 2019-06-11. https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-06-11/meteorites.csv\nThe Meteoritical Society. (2019). “Meteorite Landings.” NASA Open Data Portal. Retrieved from https://data.nasa.gov/Space-Science/Meteorite-Landings/gh4g-9sfh. The data was collected and maintained by The Meteoritical Society and made available through NASA’s Open Data Portal."
+    "text": "This analysis explores meteorite data from The Meteoritical Society, examining the difference between meteorites that were observed falling to Earth and later recovered (“falls”) versus those that were discovered without anyone witnessing the fall (“finds”). Meteorites provide valuable insights into the composition of objects in our solar system and can help scientists understand the formation and evolution of planetary bodies."
   },
   {
     "objectID": "Valentines Day Gifts.html#introduction",
     "href": "Valentines Day Gifts.html#introduction",
     "title": "Gift Giving",
     "section": "",
-    "text": "This analysis examines Valentine’s Day gift-giving patterns across different genders. The dataset provides information on the percentage of men and women who purchase various categories of gifts for Valentine’s Day, offering insights into consumer behavior and gender-based preferences during this holiday.\n\n\n\n\n\n\n\n\n\n\n\n\nMock, Thomas. (2024). “Valentine’s Day Consumer Data.” TidyTuesday. R for Data Science Online Learning Community. Week 7, 2024-02-13. https://github.com/rfordatascience/tidytuesday/tree/master/data/2024/2024-02-13/gifts.csv\nNational Retail Federation and Prosper Insights & Analytics. (2024). “Valentine’s Day Data Center: Annual Valentine’s Day Spending Survey.” National Retail Federation. Retrieved from https://nrf.com/topics/holiday-and-seasonal-trends/valentines-day/valentines-day-data-center. Survey of 7,616 adult consumers conducted January 2-9, 2024, with a margin of error of plus or minus 1.1 percentage points."
+    "text": "This analysis examines Valentine’s Day gift-giving patterns across different genders. The dataset provides information on the percentage of men and women who purchase various categories of gifts for Valentine’s Day, offering insights into consumer behavior and gender-based preferences during this holiday."
   },
   {
     "objectID": "Project 3.html#introduction",
@@ -530,5 +530,19 @@
     "title": "Free Throw Rate and Tournament Odds",
     "section": "9 Data Source",
     "text": "9 Data Source\nAccessed via: Sundberg, A. (2021). College Basketball Dataset. Kaggle. Retrieved from https://www.kaggle.com/datasets/andrewsundberg/college-basketball-dataset\n\nOriginal source: Sports-Reference. (n.d.). College Basketball Statistics. Retrieved from https://www.sports-reference.com/cbb/"
+  },
+  {
+    "objectID": "Valentines Day Gifts.html#plot-description",
+    "href": "Valentines Day Gifts.html#plot-description",
+    "title": "Gift Giving",
+    "section": "Plot Description",
+    "text": "Plot Description\nThe bar chart above reveals notable gender differences in Valentine’s Day gift purchasing patterns. Men are significantly more likely to buy flowers (56% vs. 19%) and jewelry (30% vs. 14%) compared to women. Women, on the other hand, purchase more greeting cards (43% vs. 37%) and gift cards (24% vs. 18%) than men. Candy is popular among both genders, though slightly more women (59%) than men (52%) purchase it. The percentage of people celebrating Valentine’s Day is identical between genders at 27%. These differences reflect traditional gift-giving norms associated with Valentine’s Day, where men have historically been expected to give items like flowers and jewelry, while women may focus more on sentimental items like cards and personalized gifts.\n\nCitations\n\nMock, Thomas. (2024). “Valentine’s Day Consumer Data.” TidyTuesday. R for Data Science Online Learning Community. Week 7, 2024-02-13. https://github.com/rfordatascience/tidytuesday/tree/master/data/2024/2024-02-13/gifts.csv\nNational Retail Federation and Prosper Insights & Analytics. (2024). “Valentine’s Day Data Center: Annual Valentine’s Day Spending Survey.” National Retail Federation. Retrieved from https://nrf.com/topics/holiday-and-seasonal-trends/valentines-day/valentines-day-data-center. Survey of 7,616 adult consumers conducted January 2-9, 2024, with a margin of error of plus or minus 1.1 percentage points."
+  },
+  {
+    "objectID": "Meteorite falls.html#analysis",
+    "href": "Meteorite falls.html#analysis",
+    "title": "Meteorite falls",
+    "section": "Analysis",
+    "text": "Analysis\nThe bar chart above illustrates the significant disparity between meteorites that were observed falling (“Fell”) versus those discovered later without witnessing the fall (“Found”). This visualization shows that the vast majority of meteorites in the NASA database were found after landing, rather than being witnessed during their descent. This pattern reflects both the randomness of meteorite landings across the globe’s vast uninhabited areas and the fact that many meteorites may have landed centuries or millennia before human documentation began. The much smaller number of observed falls highlights how relatively rare it is for people to actually witness a meteorite’s descent to Earth.\n\nCitations\n\nFirke, Thomas. (2019). “Meteorites.” TidyTuesday. R for Data Science Online Learning Community. Week 24, 2019-06-11. https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-06-11/meteorites.csv\nThe Meteoritical Society. (2019). “Meteorite Landings.” NASA Open Data Portal. Retrieved from https://data.nasa.gov/Space-Science/Meteorite-Landings/gh4g-9sfh. The data was collected and maintained by The Meteoritical Society and made available through NASA’s Open Data Portal."
   }
 ]

@@ -34,6 +34,10 @@ ggplot(gifts_long, aes(x = GiftCategory, y = Percentage, fill = Gender)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+## Plot Description
+
+The bar chart above reveals notable gender differences in Valentine's Day gift purchasing patterns. Men are significantly more likely to buy flowers (56% vs. 19%) and jewelry (30% vs. 14%) compared to women. Women, on the other hand, purchase more greeting cards (43% vs. 37%) and gift cards (24% vs. 18%) than men. Candy is popular among both genders, though slightly more women (59%) than men (52%) purchase it. The percentage of people celebrating Valentine's Day is identical between genders at 27%. These differences reflect traditional gift-giving norms associated with Valentine's Day, where men have historically been expected to give items like flowers and jewelry, while women may focus more on sentimental items like cards and personalized gifts.
+
 ### Citations
 
 -   Mock, Thomas. (2024). "Valentine's Day Consumer Data." TidyTuesday. R for Data Science Online Learning Community. Week 7, 2024-02-13. <https://github.com/rfordatascience/tidytuesday/tree/master/data/2024/2024-02-13/gifts.csv>

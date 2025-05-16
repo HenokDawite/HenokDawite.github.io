@@ -32,6 +32,10 @@ ggplot(meteorites_clean, aes(x = fall, y = count, fill = fall)) +
   theme_minimal()
 ```
 
+## Analysis
+
+The bar chart above illustrates the significant disparity between meteorites that were observed falling ("Fell") versus those discovered later without witnessing the fall ("Found"). This visualization shows that the vast majority of meteorites in the NASA database were found after landing, rather than being witnessed during their descent. This pattern reflects both the randomness of meteorite landings across the globe's vast uninhabited areas and the fact that many meteorites may have landed centuries or millennia before human documentation began. The much smaller number of observed falls highlights how relatively rare it is for people to actually witness a meteorite's descent to Earth.
+
 ### Citations
 
 -   Firke, Thomas. (2019). "Meteorites." TidyTuesday. R for Data Science Online Learning Community. Week 24, 2019-06-11. <https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-06-11/meteorites.csv>
