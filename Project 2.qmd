@@ -23,14 +23,12 @@ about:
 
 ```{r}
 library(tidyverse)
-library(stringr)
-library(ggplot2)
 
 # Load the dataset
 netflix_data <- read.csv("netflix_titles 2.csv", stringsAsFactors = FALSE)
 
 # Data Cleaning
-netflix_data <- netflix_data %>%
+netflix_data <- netflix_data |>
   mutate(
     date_added = as.Date(date_added, format="%B %d, %Y"),
     title = as.character(title)
@@ -39,9 +37,9 @@ netflix_data <- netflix_data %>%
 
 ```{r}
 # Extract year from date_added for visualization
-netflix_data$year_added <- str_extract(netflix_data$date_added, "\\d{4}")
-
-netflix_data_clean <- netflix_data %>% filter(!is.na(year_added))
+netflix_data_clean <- netflix_data |>
+  mutate(year_added = str_extract(as.character(date_added), "\\d{4}")) |>
+  filter(!is.na(year_added))
 
 # Number of titles per year
 p1 <- ggplot(netflix_data_clean, aes(x = year_added)) +
@@ -55,7 +53,8 @@ This is a bar chart that indicates how many titles were added to the Netflix lib
 
 ```{r}
 # Count the number of words in each description for visualization
-netflix_data$word_count <- str_count(netflix_data$description, "\\w+")
+netflix_data <- netflix_data |>
+  mutate(word_count = str_count(description, "\\w+"))
 
 # Average word count in description by type
 p2 <- ggplot(netflix_data, aes(x = type, y = word_count, fill = type)) +
@@ -66,26 +65,28 @@ p2 <- ggplot(netflix_data, aes(x = type, y = word_count, fill = type)) +
 print(p2)
 ```
 
-This box plot displays the distribution of word counts in content descriptions, categorized by the types that are movies and TV shows. According to the figure, TV shows often have shorter descriptions (around 20–30 words), but movies have lengthier descriptions (about 40–50 words on average). This implies that because movies are stand-alone works of content, they may need more thorough explanations to condense their stories and concepts. TV shows, on the other hand, may employ briefer summaries and concentrate on more general themes entice people to watch a series.
+This box plot displays the distribution of word counts in content descriptions, categorized by movies and TV shows. Looking at the actual data, we can see that the distributions are quite similar between the two content types. Both movies and TV shows have median description lengths of approximately 23-25 words, with similar interquartile ranges but Tmay have a slightly wider spread, indicating more variability in description lengths. This suggests that Netflix maintains relatively consistent description lengths across content types, likely adhering to internal style guidelines for content descriptions regardless of whether the title is a movie or TV show.
 
 ```{r}
-# Split titles into words and count most common words
-netflix_data$word_after_the <- str_extract(netflix_data$title, "(?<=The )\\w+")
+# Extract word after "The" in titles
+netflix_data <- netflix_data |>
+  mutate(word_after_the = str_extract(title, "(?<=The )\\w+"))
 
-word_after_the_counts <- netflix_data$word_after_the %>%
-  na.omit() %>%                 
-  table() %>%                   
-  as.data.frame() %>%
-  rename(word = ".", count = "Freq") %>%
-  arrange(desc(count)) %>%
-  head(10)                             
+# Count top 10 most common words
+word_after_the_counts <- netflix_data |>
+  drop_na(word_after_the) |>
+  count(word_after_the, name = "count") |>
+  arrange(desc(count)) |>
+  slice_head(n = 10)
 
-p3 <- ggplot(word_after_the_counts, aes(x = reorder(word, count), y = count, fill = count)) +
+# Horizontal bar chart
+p3 <- word_after_the_counts |>
+  ggplot(aes(x = reorder(word_after_the, count), y = count, fill = count)) +
   geom_bar(stat = "identity", color = "black") +
   coord_flip() +
   labs(title = "Top 10 Words Following 'The' in Netflix Titles", x = "Word", y = "Count") +
   scale_fill_gradient(low = "moccasin", high = "darkorange") +
-  theme(legend.position = "none") 
+  theme(legend.position = "none")
 
 print(p3)
 ```
