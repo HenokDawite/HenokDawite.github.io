@@ -70,6 +70,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
@@ -107,7 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -149,6 +150,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="./Project 3.html">
  <span class="dropdown-text">Free Throw Rate &amp; Tourney Odds</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./Project4.html">
+ <span class="dropdown-text">Havasupai Tribe v. Arizona Board of Regents</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Project5.html">
+ <span class="dropdown-text">Exploring U.S. Policing Trends Through Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DS02Prezi.html">
+ <span class="dropdown-text">DS Presentation</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -162,118 +175,159 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#data-cleaning-and-preparation" id="toc-data-cleaning-and-preparation" class="nav-link" data-scroll-target="#data-cleaning-and-preparation"><span class="header-section-number">2</span> Data Cleaning and Preparation</a></li>
+  <li><a href="#visualizing-the-differences" id="toc-visualizing-the-differences" class="nav-link" data-scroll-target="#visualizing-the-differences"><span class="header-section-number">3</span> Visualizing the Differences</a></li>
+  <li><a href="#observed-difference" id="toc-observed-difference" class="nav-link" data-scroll-target="#observed-difference"><span class="header-section-number">4</span> Observed Difference</a></li>
+  <li><a href="#permutation-test-function" id="toc-permutation-test-function" class="nav-link" data-scroll-target="#permutation-test-function"><span class="header-section-number">5</span> Permutation Test Function</a></li>
+  <li><a href="#simulate-permutations" id="toc-simulate-permutations" class="nav-link" data-scroll-target="#simulate-permutations"><span class="header-section-number">6</span> Simulate Permutations</a></li>
+  <li><a href="#plot-the-null-distribution" id="toc-plot-the-null-distribution" class="nav-link" data-scroll-target="#plot-the-null-distribution"><span class="header-section-number">7</span> Plot the Null Distribution</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">8</span> Conclusion</a></li>
+  <li><a href="#data-source" id="toc-data-source" class="nav-link" data-scroll-target="#data-source"><span class="header-section-number">9</span> Data Source</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<div class="quarto-about-trestles">
-  <div class="about-entity">
+<main class="content" id="quarto-document-content">
+
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Free Throw Rate and Tournament Odds</h1>
 </div>
+
 <div>
   <div class="description">
     <p>Do teams that make it to the NCAA tournament get to the free throw line more often than those that don’t? Using the cbb.csv dataset, which includes Division I men’s basketball stats, I examine whether a team’s free throw rate (FTR) — calculated as free throw attempts per field goal attempt — is linked to postseason qualification. A permutation test is used to simulate what we’d expect if free throw rate and tournament selection were unrelated.</p>
   </div>
 </div>
+
+
 <div class="quarto-title-meta">
+
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
              <p>Henok Dawite </p>
           </div>
   </div>
+    
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
       <p class="date">April 2, 2025</p>
     </div>
   </div>
+  
+    
   </div>
+  
+
+
 </header>
-    <div class="about-links">
-  <a href="https://www.kaggle.com/datasets/andrewsundberg/college-basketball-dataset" class="about-link" rel="" target="">
-     <span class="about-link-text">CBB Dataset</span>
-  </a>
-</div>
-  </div>
-  <div class="about-contents"><main class="content" id="quarto-document-content">
-<p><strong>Full Context of Problem</strong></p>
-<p>This project investigates whether NCAA Division I men’s basketball teams that make the tournament tend to get to the free throw line more often than those that don’t. The data set used (cbb.csv) includes team-level performance statistics from a full season, including each team’s free throw rate (FTR). This is defined as free throw attempts per field goal attempt. To examine this, we create a new variable, made_tourney, that categorizes teams as either having qualified for the NCAA tournament or not.</p>
-<p>The null hypothesis is that there is no real difference in free throw rate between teams that make the tournament. For those that don’t, any observed difference is due to random chance. The alternative hypothesis is that teams who qualify for the tournament tend to have higher free throw rates. This relationship is worth looking into because a higher FTR often reflects physicality, aggressiveness, or the ability to draw fouls. Those traits may or may not contribute to team success leading up to the tournament. We begin by visualizing the distribution of FTR across both groups, and then conduct a permutation test to assess whether the observed difference is statistically significant.</p>
+
+
+<section id="introduction" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
+<p>This project looks into whether NCAA Division I men’s basketball teams that qualify for the tournament tend to reach the free throw line more often than those that don’t. We use Free Throw Rate (FTR), calculated as free throw attempts divided by field goal attempts (FTA/FGA), as a proxy for offensive aggressiveness. Teams with higher FTRs are likely getting fouled more and playing physically, and the question is whether that shows up in who makes the tournament.</p>
+</section>
+<section id="data-cleaning-and-preparation" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="data-cleaning-and-preparation"><span class="header-section-number">2</span> Data Cleaning and Preparation</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>cbb <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"cbb.csv"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">made_tourney =</span> <span class="fu">if_else</span>(postseason <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"2ND"</span>, <span class="st">"Champions"</span>, <span class="st">"E8"</span>, <span class="st">"F4"</span>, <span class="st">"R32"</span>, <span class="st">"R64"</span>, <span class="st">"R68"</span>, <span class="st">"S16"</span>), <span class="st">"yes"</span>, <span class="st">"no"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ftr, made_tourney) <span class="sc">|&gt;</span> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(ftr))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="visualizing-the-differences" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="visualizing-the-differences"><span class="header-section-number">3</span> Visualizing the Differences</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cbb <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"cbb.csv"</span>) <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># create a binary variable for whether the team made the tournament or not</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>cbb <span class="ot">&lt;-</span> cbb <span class="sc">|&gt;</span> </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">made_tourney =</span> <span class="fu">if_else</span>(postseason <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"2ND"</span>, <span class="st">"Champions"</span>, <span class="st">"E8"</span>, <span class="st">"F4"</span>, <span class="st">"R32"</span>, <span class="st">"R64"</span>, <span class="st">"R68"</span>, <span class="st">"S16"</span>), <span class="st">"yes"</span>, <span class="st">"no"</span>))</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># keep only relevant columns</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>cbb_filtered <span class="ot">&lt;-</span> cbb <span class="sc">|&gt;</span> </span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(made_tourney <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"yes"</span>, <span class="st">"no"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ftr, made_tourney)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><strong>Visualize Group Differences</strong></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a boxplot to compare the distribution of Free Throw Rate (FTR)</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># between tournament and non-tournament teams</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cbb_filtered, <span class="fu">aes</span>(<span class="at">x =</span> made_tourney, <span class="at">y =</span> ftr, <span class="at">fill =</span> made_tourney)) <span class="sc">+</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Free Throw Rate by Tournament Status"</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Made NCAA Tournament"</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Free Throw Rate (FTA/FGA)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a boxplot to compare FTR between tournament and non-tournament teams</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cbb, <span class="fu">aes</span>(<span class="at">x =</span> made_tourney, <span class="at">y =</span> ftr, <span class="at">fill =</span> made_tourney)) <span class="sc">+</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Free Throw Rate by Tournament Status"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Made NCAA Tournament"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Free Throw Rate (FTA/FGA)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Project-3_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Project-3_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><strong>About Box Plot</strong></p>
-<p>This box plot compares Free Throw Rate (FTR) between teams that made the NCAA tournament and those that didn’t. It shows that tournament teams generally have a higher median FTR, and their overall distribution is slightly shifted upward. This visual gives an early indication that teams reaching the tournament may be more likely to draw fouls and get to the free throw line.</p>
+</section>
+<section id="observed-difference" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="observed-difference"><span class="header-section-number">4</span> Observed Difference</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the observed difference in mean FTR between the two groups</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>obs_diff <span class="ot">&lt;-</span> cbb_filtered <span class="sc">|&gt;</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(ftr <span class="sc">~</span> made_tourney) <span class="sc">|&gt;</span> </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"diff in means"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"yes"</span>, <span class="st">"no"</span>))</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>obs_diff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate observed difference in mean FTR between the two groups</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>obs_diff <span class="ot">&lt;-</span> cbb <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(made_tourney) <span class="sc">|&gt;</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_ftr =</span> <span class="fu">mean</span>(ftr)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">diff =</span> mean_ftr[<span class="fu">which</span>(made_tourney <span class="sc">==</span> <span class="st">"yes"</span>)] <span class="sc">-</span> mean_ftr[<span class="fu">which</span>(made_tourney <span class="sc">==</span> <span class="st">"no"</span>)]) <span class="sc">|&gt;</span> </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(diff)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>obs_diff</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Response: ftr (numeric)
-Explanatory: made_tourney (factor)
-# A tibble: 1 × 1
-   stat
-  &lt;dbl&gt;
-1  1.35</code></pre>
+<pre><code>[1] 1.349134</code></pre>
 </div>
 </div>
-<p><strong>Run Permutation Test</strong></p>
+<p><strong>Interpretation:</strong><br>
+The observed difference in mean Free Throw Rate between tournament and non-tournament teams is approximately 0.0135 (or 1.35 percentage points). This means that, on average, tournament teams attempted 1.35 more free throws per 100 field goal attempts compared to teams that didn’t make the tournament. This statistic helps us understand whether drawing more fouls may correlate with postseason success.</p>
+</section>
+<section id="permutation-test-function" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="permutation-test-function"><span class="header-section-number">5</span> Permutation Test Function</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate the null distribution by randomly permuting group labels 1000 times</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>perm_results <span class="ot">&lt;-</span> cbb_filtered <span class="sc">|&gt;</span> </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(ftr <span class="sc">~</span> made_tourney) <span class="sc">|&gt;</span> </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"diff in means"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"yes"</span>, <span class="st">"no"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to simulate one permutation of the group labels and return mean difference in FTR</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>perm_test <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">|&gt;</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">shuffled_group =</span> <span class="fu">sample</span>(made_tourney)) <span class="sc">|&gt;</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(shuffled_group) <span class="sc">|&gt;</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">mean_ftr =</span> <span class="fu">mean</span>(ftr), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> shuffled_group, <span class="at">values_from =</span> mean_ftr) <span class="sc">|&gt;</span> </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">transmute</span>(<span class="at">diff =</span> yes <span class="sc">-</span> no) <span class="sc">|&gt;</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(diff)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>Plot Null Distribution</strong></p>
+</section>
+<section id="simulate-permutations" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="simulate-permutations"><span class="header-section-number">6</span> Simulate Permutations</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a histogram to visualize the null distribution of permuted differences</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and overlay the observed difference as a red dashed line</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(perm_results, <span class="fu">aes</span>(<span class="at">x =</span> stat)) <span class="sc">+</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.05</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> obs_diff<span class="sc">$</span>stat, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Null Distribution of Free Throw Rate Differences"</span>,</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Difference in Mean FTR (Tournament - Non-Tournament)"</span>,</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run 1000 permutations and compute one-sided p-value</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>perm_results <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="sc">~</span> <span class="fu">perm_test</span>(cbb))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Testing if tournament teams have higher FTR</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>p_val <span class="ot">&lt;-</span> <span class="fu">mean</span>(perm_results <span class="sc">&gt;=</span> obs_diff)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>p_val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+</section>
+<section id="plot-the-null-distribution" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="plot-the-null-distribution"><span class="header-section-number">7</span> Plot the Null Distribution</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the null distribution of differences with the observed difference highlighted</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">diff =</span> perm_results) <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> diff)) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.05</span>, <span class="at">fill =</span> <span class="st">"lightblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> obs_diff, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Permutation Test: Free Throw Rate Difference"</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Simulated Difference in Mean FTR"</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -282,26 +336,21 @@ Explanatory: made_tourney (factor)
 </div>
 </div>
 </div>
-<p><strong>About Histogram</strong></p>
-<p>This graph shows simulated differences in Free Throw Rate, assuming no real relationship exists. The red dashed line represents the actual observed difference between tournament and non-tournament teams, which falls far to the right of most simulated values. This would suggest that the result is unlikely due to chance.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate p-value</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>p_val <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>(perm_results<span class="sc">$</span>stat) <span class="sc">&gt;=</span> <span class="fu">abs</span>(obs_diff<span class="sc">$</span>stat))</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>p_val</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0</code></pre>
-</div>
-</div>
-<p><strong>Conclusion</strong></p>
-<p>Ultimately, my permutation test found that teams that make the NCAA tournament have a statistically significantly higher Free Throw Rate than teams that do not, with a p-value of less than 0.001, meaning this difference is not due to chance. I found this by calculating the means of both populations’ free throw rates and performing a permutation test of my own, where I randomly shuffled the labels of whether or not teams made the NCAA tournament 1,000 times, hypothesizing that there was no association between tournament outcome and Free Throw Rate. I then plotted the observed difference based on iteration. I found that the actual difference in means I calculated was far more extreme than any of the differences created within my simulation—effectively echoing that making it to the free throw line more often is a characteristic of teams that make the tournament over those that do not.</p>
-<p>Data Source:</p>
-<p>Accessed via: <a href="https://www.kaggle.com/" class="uri">https://www.kaggle.com/</a></p>
-<p>Original Source: Kaggle</p>
+</section>
+<section id="conclusion" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">8</span> Conclusion</h2>
+<p>Teams that made the NCAA tournament had, on average, a Free Throw Rate about 1.35 percentage points higher than non-tournament teams. Our permutation test produced a p-value below 0.01, indicating this difference is unlikely due to random variation alone. This suggests that getting to the free throw line more often may be a factor in team success.</p>
+</section>
+<section id="data-source" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="data-source"><span class="header-section-number">9</span> Data Source</h2>
+<p>Accessed via: Sundberg, A. (2021). <em>College Basketball Dataset</em>. Kaggle. Retrieved from <a href="https://www.kaggle.com/datasets/andrewsundberg/college-basketball-dataset" class="uri">https://www.kaggle.com/datasets/andrewsundberg/college-basketball-dataset</a><br>
+</p>
+<p>Original source: Sports-Reference. (n.d.). <em>College Basketball Statistics</em>. Retrieved from <a href="https://www.sports-reference.com/cbb/" class="uri">https://www.sports-reference.com/cbb/</a></p>
 
 
-</main></div>
-</div>
- <!-- /main -->
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -322,6 +371,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     
