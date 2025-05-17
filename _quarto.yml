@@ -8,6 +8,8 @@ website:
     left:
       - href: index.qmd
         text: Home
+      - href: Resume.qmd
+        text: Resume
       - text: Projects
         menu: 
           - href: Valentines Day Gifts.qmd

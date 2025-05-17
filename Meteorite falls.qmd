@@ -38,6 +38,6 @@ The bar chart above illustrates the significant disparity between meteorites tha
 
 ### Citations
 
--   Firke, Thomas. (2019). "Meteorites." TidyTuesday. R for Data Science Online Learning Community. Week 24, 2019-06-11. <https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-06-11/meteorites.csv>
+Accessed via: Firke, Thomas. (2019). "Meteorites." TidyTuesday. R for Data Science Online Learning Community. Week 24, 2019-06-11. <https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-06-11/meteorites.csv>
 
--   The Meteoritical Society. (2019). "Meteorite Landings." NASA Open Data Portal. Retrieved from <https://data.nasa.gov/Space-Science/Meteorite-Landings/gh4g-9sfh>. The data was collected and maintained by The Meteoritical Society and made available through NASA's Open Data Portal.
+Original Data: The Meteoritical Society. (2019). "Meteorite Landings." NASA Open Data Portal. Retrieved from <https://data.nasa.gov/Space-Science/Meteorite-Landings/gh4g-9sfh>. The data was collected and maintained by The Meteoritical Society and made available through NASA's Open Data Portal.
