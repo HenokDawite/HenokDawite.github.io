@@ -40,6 +40,6 @@ The bar chart above reveals notable gender differences in Valentine's Day gift p
 
 ### Citations
 
--   Mock, Thomas. (2024). "Valentine's Day Consumer Data." TidyTuesday. R for Data Science Online Learning Community. Week 7, 2024-02-13. <https://github.com/rfordatascience/tidytuesday/tree/master/data/2024/2024-02-13/gifts.csv>
+Accessed via: Mock, Thomas. (2024). "Valentine's Day Consumer Data." TidyTuesday. R for Data Science Online Learning Community. Week 7, 2024-02-13. <https://github.com/rfordatascience/tidytuesday/tree/master/data/2024/2024-02-13/gifts.csv>
 
--   National Retail Federation and Prosper Insights & Analytics. (2024). "Valentine's Day Data Center: Annual Valentine's Day Spending Survey." National Retail Federation. Retrieved from <https://nrf.com/topics/holiday-and-seasonal-trends/valentines-day/valentines-day-data-center>. Survey of 7,616 adult consumers conducted January 2-9, 2024, with a margin of error of plus or minus 1.1 percentage points.
+Original Data: National Retail Federation and Prosper Insights & Analytics. (2024). "Valentine's Day Data Center: Annual Valentine's Day Spending Survey." National Retail Federation. Retrieved from <https://nrf.com/topics/holiday-and-seasonal-trends/valentines-day/valentines-day-data-center>. Survey of 7,616 adult consumers conducted January 2-9, 2024, with a margin of error of plus or minus 1.1 percentage points.

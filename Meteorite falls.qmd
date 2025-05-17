@@ -17,7 +17,7 @@ suppressMessages(library(dplyr))
 # Load dataset
 meteorites <- read.csv("meteorites.csv")
 
-# Data preparation
+# Filter out missing values and count falls vs finds
 meteorites_clean <- meteorites |>
   filter(!is.na(fall)) |>
   group_by(fall) |>

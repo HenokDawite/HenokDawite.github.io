@@ -95,6 +95,10 @@ This horizontal bar chart showcases the ten most common words that immediately f
 
 Data Source:
 
-Accessed via: [TidyTuesday GitHub page](https://github.com/rfordatascience/tidytuesday/blob/main/data/2021/2021-04-20/readme.md)
+**Accessed via:**\
 
-Original Source: Kaggle
+Shivam Bansal. (2019). *Netflix Movies and TV Shows Dataset*. Kaggle. Retrieved from: <https://www.kaggle.com/datasets/shivamb/netflix-shows>
+
+**Original Data Source:**\
+
+Collected from Netflix’s publicly available catalog data. This dataset includes TV shows and movies available on Netflix as of 2021, with metadata such as title, director, cast, release year, country, date added, rating, and description.
