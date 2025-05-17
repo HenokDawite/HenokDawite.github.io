@@ -4,7 +4,6 @@ project:
 
 website:
   title: "HenokDawite"
-  favicon: favicon.ico
   navbar:
     background: "#1b2a49"
     left:
@@ -27,7 +26,7 @@ website:
           - href: Project5.qmd
             text: Exploring U.S. Policing Trends Through Data
           - href: DS02Prezi.qmd
-            text: DS Presentation
+            text: Presentation on Policing Trends
 
 format:
   html:
