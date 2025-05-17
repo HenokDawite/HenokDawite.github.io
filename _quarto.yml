@@ -5,6 +5,7 @@ project:
 website:
   title: "HenokDawite"
   navbar:
+    background: "#1b2a49"
     left:
       - href: index.qmd
         text: Home
@@ -29,7 +30,8 @@ website:
 
 format:
   html:
-    theme: cosmo
+    theme:
+      light: flatly
     css: styles.css
     toc: true
 
