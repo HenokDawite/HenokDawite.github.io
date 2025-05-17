@@ -100,8 +100,14 @@ ggplot(oakland_outcomes, aes(x = reorder(outcome, -count), y = percent)) +
 
 **Conclusion:** Using SQL and R, we analyzed search rates and stop outcomes across and within cities. We used multiple SQL tables and functions (`UNION ALL`, `ROUND`, `CASE WHEN`, `GROUP BY`, `ORDER BY`, `WHERE`) to handle our wrangling exclusively within the database. This approach allowed us to uncover patterns of racial disparity and enforcement trends across jurisdictions. Our comparison across cities revealed that Black drivers face disproportionately high search rates, while city-level breakdowns like in Oakland showed that most stops result in either citations or warnings, but that arrests are not uncommon. The data were sourced from the Stanford Open Policing Project (Pierson et al., 2020), and the analysis suggests that both the rate and nature of stops vary substantially depending on location and race.
 
-**Citation**
+**Citations**
 
-Pierson, E., Corbett-Davies, S., & Goel, S. (2020). A large-scale analysis of racial disparities in police stops across the United States. *Nature Human Behaviour*, 4(7), 736–745. <https://doi.org/10.1038/s41562-020-0858-1>
+**Academic Source:**\
 
-Data : Stanford Open Policing Project — <https://openpolicing.stanford.edu/data/>
+Pierson, E., Corbett-Davies, S., & Goel, S. (2020). *A large-scale analysis of racial disparities in police stops across the United States*. *Nature Human Behaviour*, 4(7), 736–745. <https://doi.org/10.1038/s41562-020-0858-1>
+
+**Dataset Source:**\
+
+Stanford Open Policing Project. (n.d.). *Traffic stop data from across the United States*. Stanford Computational Policy Lab. Retrieved from <https://openpolicing.stanford.edu/data/>
+
+The Stanford Open Policing Project collects, cleans, and standardizes traffic stop data from law enforcement agencies across the U.S. to enable analyses of racial disparities in policing practices. The data includes over 200 million records from state patrol and municipal police departments.

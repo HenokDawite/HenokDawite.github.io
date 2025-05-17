@@ -41,6 +41,6 @@ Ultimately, we need to make sure that consent is culturally appropriate and that
 
 References
 
-Van Assche, K., Gutwirth, S., & Sterckx, S. (2013). Protecting Dignitary Interests of Biobank Research Participants: Lessons from Havasupai Tribe v Arizona Board of Regents. *Law, Innovation and Technology*, 5(1), 54–84. https://doi.org/10.5235/17579961.5.1.54
+Van Assche, K., Gutwirth, S., & Sterckx, S. (2013). Protecting Dignitary Interests of Biobank Research Participants: Lessons from Havasupai Tribe v Arizona Board of Regents. *Law, Innovation and Technology*, 5(1), 54–84. <https://doi.org/10.5235/17579961.5.1.54>
 
-Harmon, A. (2010). Indian Tribe Wins Fight to Limit Research of Its DNA. *The New York Times*. https://www.nytimes.com/2010/04/22/us/22dna.html
+Harmon, A. (2010). Indian Tribe Wins Fight to Limit Research of Its DNA. *The New York Times*. <https://www.nytimes.com/2010/04/22/us/22dna.html>
