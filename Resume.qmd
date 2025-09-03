@@ -4,6 +4,6 @@ format: html
 page-layout: full
 ---
 
-<iframe src="Resume.pdf" width="100%" height="1000px" style="border: none;">
+<iframe src="Henok Dawite Resume.pdf" width="100%" height="1000px" style="border: none;">
 
 </iframe>
